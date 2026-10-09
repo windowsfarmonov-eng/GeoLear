@@ -51,12 +51,21 @@ const siteOrigin = (() => {
   }
 })()
 
+const setMeta = (selector, value) => document.querySelector(selector)?.setAttribute('content', value)
+
 function applyDocumentLocale(current) {
+  const pageUrl = current === 'ru' ? `${siteOrigin}/?lang=ru` : `${siteOrigin}/`
   document.documentElement.lang = current
   document.title = t('meta.title')
-  document.querySelector('meta[name="description"]')?.setAttribute('content', t('meta.description'))
-  document.querySelector('meta[property="og:locale"]')?.setAttribute('content', current === 'ru' ? 'ru_RU' : 'uz_UZ')
-  canonical?.setAttribute('href', current === 'ru' ? `${siteOrigin}/?lang=ru` : `${siteOrigin}/`)
+  setMeta('meta[name="description"]', t('meta.description'))
+  setMeta('meta[property="og:locale"]', current === 'ru' ? 'ru_RU' : 'uz_UZ')
+  setMeta('meta[property="og:locale:alternate"]', current === 'ru' ? 'uz_UZ' : 'ru_RU')
+  setMeta('meta[property="og:url"]', pageUrl)
+  setMeta('meta[property="og:title"]', t('meta.title'))
+  setMeta('meta[property="og:description"]', t('meta.description'))
+  setMeta('meta[name="twitter:title"]', t('meta.title'))
+  setMeta('meta[name="twitter:description"]', t('meta.description'))
+  canonical?.setAttribute('href', pageUrl)
 
   // Havolani ulashganda til saqlansin: ?lang=ru
   const url = new URL(window.location.href)

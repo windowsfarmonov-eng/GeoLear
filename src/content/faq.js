@@ -43,6 +43,11 @@ export const faq = {
       q: 'AI yordamchi xavfsizmi?',
       a: "Ha. O'qituvchi «AI Logs» bo'limida o'quvchilarning AI bilan yozishmalarini nazorat qiladi va nojo'ya so'zlar ishlatilganda ogohlantirish oladi.",
     },
+    {
+      id: 'author',
+      q: "GeoLearn'ni kim yaratgan?",
+      a: "GeoLearn'ni Toshkent shahridagi 279-maktab o'quvchisi yaratgan. Platforma geografiya darslari va testlari uchun mo'ljallangan — undan istalgan maktab o'qituvchi va o'quvchilari foydalanishi mumkin.",
+    },
   ],
   ru: [
     {
@@ -82,5 +87,24 @@ export const faq = {
       q: 'Безопасен ли ИИ-помощник?',
       a: 'Да. Учитель контролирует переписку учеников с ИИ в разделе «AI Logs» и получает предупреждения, если используются недопустимые слова.',
     },
+    {
+      id: 'author',
+      q: 'Кто создал GeoLearn?',
+      a: 'GeoLearn создал ученик школы №279 города Ташкента. Платформа предназначена для уроков и тестов по географии — ею могут пользоваться учителя и ученики любой школы.',
+    },
   ],
+}
+
+/** Google uchun FAQPage strukturalangan ma'lumoti (JSON-LD) */
+export function faqJsonLd(lang) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: lang,
+    mainEntity: faq[lang].map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  }
 }

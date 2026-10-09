@@ -44,7 +44,7 @@ let resizeObserver = null
 let trigger = null
 
 onMounted(() => {
-  buildPath()
+  // yo'lni ResizeObserver birinchi layout'dan keyin chizadi (mount paytida majburiy layout yo'q)
   resizeObserver = new ResizeObserver(buildPath)
   if (wrap.value) resizeObserver.observe(wrap.value)
   if (!motionOK || !wrap.value) return

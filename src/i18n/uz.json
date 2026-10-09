@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "GeoLearn — Geografiyani interaktiv o'rganish platformasi",
-    "description": "GeoLearn — maktablar uchun interaktiv geografiya platformasi: darslar va testlar, jonli o'yinlar, reyting, uy ishlari va 24/7 AI yordamchi. 1–11-sinflar, o'zbek va rus sinflari uchun."
+    "title": "GeoLearn — geografiya darslari va testlari | 279-maktab o'quvchisi loyihasi",
+    "description": "GeoLearn — Toshkentdagi 279-maktab o'quvchisi yaratgan interaktiv geografiya sayti: darslar va testlar, jonli o'yinlar, reyting va AI yordamchi. O'zbek va rus sinflari uchun."
   },
   "a11y": {
     "skip": "Asosiy kontentga o'tish",
@@ -419,7 +419,7 @@
     "text": "O'qituvchi bo'lsangiz — panelga kiring. O'quvchi bo'lsangiz — ro'yxatdan o'ting va birinchi mavzudan boshlang."
   },
   "footer": {
-    "about": "GeoLearn — maktablar uchun geografiyani interaktiv o'rgatuvchi onlayn platforma.",
+    "about": "GeoLearn — geografiya darslari va testlari uchun interaktiv onlayn platforma. Toshkentdagi 279-maktab o'quvchisi tomonidan yaratilgan.",
     "portals": "Portallar",
     "sections": "Bo'limlar",
     "contact": "Aloqa",

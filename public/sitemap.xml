@@ -4,16 +4,14 @@
     <loc>https://geolearn.uz/</loc>
     <xhtml:link rel="alternate" hreflang="uz" href="https://geolearn.uz/" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://geolearn.uz/?lang=ru" />
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://geolearn.uz/" />
+    <lastmod>2026-10-09</lastmod>
   </url>
   <url>
     <loc>https://geolearn.uz/?lang=ru</loc>
     <xhtml:link rel="alternate" hreflang="uz" href="https://geolearn.uz/" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://geolearn.uz/?lang=ru" />
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://geolearn.uz/" />
+    <lastmod>2026-10-09</lastmod>
   </url>
 </urlset>

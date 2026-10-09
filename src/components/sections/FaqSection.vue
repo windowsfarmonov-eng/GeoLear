@@ -1,15 +1,25 @@
 <script setup>
 // FAQ — savol-javoblar src/content/faq.ts faylidan olinadi (o'sha yerda tahrirlang).
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import SectionHeading from '../ui/SectionHeading.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import ShowcaseGlobe from '../three/ShowcaseGlobe.vue'
-import { faq } from '../../content/faq'
+import { faq, faqJsonLd } from '../../content/faq'
 import { contacts } from '../../config/site'
 import { locale, t } from '../../i18n'
 
 const items = computed(() => faq[locale.value])
 const open = ref(items.value[0]?.id ?? null)
+
+// FAQPage JSON-LD (index.html'da build paytida yozilgan) joriy tilga moslanadi
+watch(
+  locale,
+  (lang) => {
+    const ld = document.getElementById('ld-faq')
+    if (ld) ld.textContent = JSON.stringify(faqJsonLd(lang))
+  },
+  { immediate: true },
+)
 
 function toggle(id) {
   open.value = open.value === id ? null : id

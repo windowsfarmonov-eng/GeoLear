@@ -72,7 +72,8 @@ const closeOnDesktop = () => {
 
 let spy = null
 onMounted(() => {
-  onScroll()
+  // scrollY'ni keyingi kadrda o'qiymiz: mount paytida majburiy (sinxron) layout bo'lmasin
+  requestAnimationFrame(onScroll)
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('keydown', onKeydown)
   desktop.addEventListener('change', closeOnDesktop)

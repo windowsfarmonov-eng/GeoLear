@@ -92,7 +92,8 @@ function measure() {
 
 let resizeObserver = null
 onMounted(() => {
-  measure()
+  // Birinchi o'lchashni ResizeObserver o'zi bajaradi (layout'dan keyin, chizishdan oldin) —
+  // mount paytida majburiy sinxron layout bo'lmasin
   resizeObserver = new ResizeObserver(measure)
   if (container.value) resizeObserver.observe(container.value)
   if (props.textColumn) resizeObserver.observe(props.textColumn)

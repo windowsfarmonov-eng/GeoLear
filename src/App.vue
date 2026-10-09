@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, onMounted, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, watch } from 'vue'
 import SiteHeader from './components/layout/SiteHeader.vue'
 import SiteFooter from './components/layout/SiteFooter.vue'
 import HeroSection from './components/sections/HeroSection.vue'
@@ -16,14 +16,17 @@ import HowItWorksSection from './components/sections/HowItWorksSection.vue'
 import RolesSection from './components/sections/RolesSection.vue'
 import FaqSection from './components/sections/FaqSection.vue'
 import FinalCta from './components/sections/FinalCta.vue'
-import { initSmoothScroll, ScrollTrigger, scrollToSection } from './composables/useSmoothScroll'
+import { initSmoothScroll, ScrollTrigger, scrollToSection, watchLayoutChanges } from './composables/useSmoothScroll'
 import { locale, t } from './i18n'
 
 // til almashganda matn uzunligi va bo'lim balandliklari o'zgaradi
 watch(locale, () => nextTick(() => ScrollTrigger.refresh()))
 
+let stopWatchingLayout = () => {}
+
 onMounted(() => {
   initSmoothScroll()
+  stopWatchingLayout = watchLayoutChanges(document.getElementById('main'))
   // shriftlar yuklangach bo'lim balandliklari o'zgarishi mumkin
   document.fonts?.ready.then(() => ScrollTrigger.refresh())
   // URL'da #bo'lim bo'lsa — o'sha joyga
@@ -32,6 +35,7 @@ onMounted(() => {
     window.setTimeout(() => scrollToSection(hash), 300)
   }
 })
+onBeforeUnmount(() => stopWatchingLayout())
 </script>
 
 <template>

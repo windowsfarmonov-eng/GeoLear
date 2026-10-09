@@ -373,6 +373,19 @@ html.scroll-locked {
   }
 }
 
+/* Ekrandan tashqaridagi bo'limlar ko'rinish maydoniga yaqinlashguncha chizilmaydi —
+   dastlabki yuklanishda layout ~6 marta arzonlashadi. Faqat 3D «sho'ng'ish» bo'limidan
+   keyingilarga (uning skroll hisobi o'zgarmasin). `auto` — bir marta chizilgan o'lcham eslab qolinadi. */
+.dive ~ .section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+html.cv-measure .dive ~ .section,
+html.cv-measure .site-footer {
+  content-visibility: visible;
+}
+
 /* Sarlavha + yonida 3D globus */
 .showcase-head {
   display: grid;

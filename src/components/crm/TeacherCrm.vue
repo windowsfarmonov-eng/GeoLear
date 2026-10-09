@@ -182,7 +182,12 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
             <AppIcon name="search" :size="16" />
             <span>{{ d.search }}</span>
           </div>
-          <button type="button" class="crm-iconbtn" @click="crmTheme = crmTheme ? 0 : 1">
+          <button
+            type="button"
+            class="crm-iconbtn"
+            :aria-label="locale === 'ru' ? 'Сменить тему' : 'Mavzuni almashtirish'"
+            @click="crmTheme = crmTheme ? 0 : 1"
+          >
             <AppIcon :name="crmTheme ? 'sun' : 'moon'" :size="17" />
           </button>
           <span class="crm-iconbtn crm-bell"><AppIcon name="bell" :size="17" /><i /></span>

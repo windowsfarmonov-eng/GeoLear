@@ -37,9 +37,60 @@ export function scrollToElement(el, offset = 0) {
   else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: motionOK ? 'smooth' : 'auto' })
 }
 
+let sizesKnown = false
+
+/**
+ * `content-visibility: auto` bo'limlari hali chizilmagan bo'lsa, ularning o'lchami taxminiy.
+ * Uzoq bo'limga o'tishdan oldin hammasini bir kadr chizdirib, haqiqiy o'lchamlarni eslab qolamiz.
+ */
+function withRealSizes(callback) {
+  if (sizesKnown) return callback()
+  const root = document.documentElement
+  root.classList.add('cv-measure')
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      root.classList.remove('cv-measure')
+      sizesKnown = true
+      // sahifa balandligi o'zgardi: Lenis skroll chegarasini va triggerlarni yangilash
+      lenis?.resize()
+      ScrollTrigger.refresh()
+      callback()
+    }),
+  )
+}
+
+/** Bo'limlar o'lchami o'zgarsa (chizilib haqiqiy balandligi chiqsa) — skroll triggerlarini yangilash */
+export function watchLayoutChanges(el) {
+  if (!el || typeof ResizeObserver === 'undefined') return () => {}
+  let timer = 0
+  let lastHeight = 0
+  const observer = new ResizeObserver(([entry]) => {
+    const height = Math.round(entry.contentRect.height)
+    if (!lastHeight || height === lastHeight) {
+      lastHeight = height
+      return
+    }
+    lastHeight = height
+    window.clearTimeout(timer)
+    timer = window.setTimeout(() => {
+      lenis?.resize()
+      ScrollTrigger.refresh()
+    }, 150)
+  })
+  observer.observe(el)
+  return () => {
+    window.clearTimeout(timer)
+    observer.disconnect()
+  }
+}
+
 export function scrollToSection(id) {
   const target = document.getElementById(id)
   if (!target) return
+  withRealSizes(() => scrollToTarget(target, id))
+}
+
+function scrollToTarget(target, id) {
   const focusTarget = () => {
     const heading = target.querySelector('h2, h1') ?? target
     if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1')
