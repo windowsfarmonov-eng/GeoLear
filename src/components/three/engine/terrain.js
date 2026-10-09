@@ -92,8 +92,10 @@ const PALETTE = [
 ]
 const paletteColors = PALETTE.map(([stop, hex]) => [stop, new Color().setStyle(hex, SRGBColorSpace)])
 const WATER = new Color().setStyle('#2a8fbf', SRGBColorSpace)
-/** Xaritada chiziladigan daryolar (7-sinf mavzulari: Amudaryo, Sirdaryo, Zarafshon) */
-const SHOWN_RIVERS = new Set(['amu', 'syr', 'zarafshon'])
+/** Xaritada chiziladigan daryolar (7-sinf mavzulari: Amudaryo, Sirdaryo, Zarafshon + Atrek, Tajan) */
+const SHOWN_RIVERS = new Set(['amu', 'syr', 'zarafshon', 'atrek', 'harirud'])
+/** central-asia-overlay.png qamrovi (earth.js bilan bir xil): ko'k kanalda davlat chegaralari */
+const OVERLAY_BOUNDS = [44, 30, 92, 58]
 const UZ_TINT = new Color().setStyle('#35c7b6', SRGBColorSpace)
 
 /** Deterministik psevdo-tasodifiy son 0..1 (panjara tugunlari uchun) */
@@ -119,12 +121,16 @@ attribute float aEdge;
 attribute vec3 aSat;
 attribute vec3 aStyl;
 attribute float aWater;
+attribute vec3 aNrm;
+attribute vec2 aOvUv;
 uniform float uHScale;
 uniform float uExag;
 uniform float uMix;
-flat varying vec3 vColor;
-flat varying float vWater;
+varying vec3 vColor;
+varying float vWater;
 varying vec3 vPosW;
+varying vec3 vNrmW;
+varying vec2 vOvUv;
 varying float vEdge;
 varying float vStyl;
 void main() {
@@ -132,6 +138,9 @@ void main() {
   vec3 p = position + n * (aHeight * uExag * uHScale);
   vec4 worldPos = modelMatrix * vec4(p, 1.0);
   vPosW = worldPos.xyz;
+  // silliq (vertex) normal: relyef ko'tarilgan sari sferadan haqiqiy yon bag'ir normaliga o'tadi
+  vNrmW = normalize(mat3(modelMatrix) * normalize(mix(n, aNrm, uHScale)));
+  vOvUv = aOvUv;
   // chetlarga yaqin joyda sun'iy yo'ldosh ranglari qoladi — globus bilan silliq tutashadi
   vStyl = uMix * aEdge;
   vColor = mix(aSat, aStyl, vStyl);
@@ -148,20 +157,39 @@ uniform float uOpacity;
 uniform float uTime;
 uniform float uDim;
 uniform vec3 uDark;
-flat varying vec3 vColor;
-flat varying float vWater;
+uniform sampler2D uOverlay;
+uniform vec3 uBorderColor;
+varying vec3 vColor;
+varying float vWater;
 varying vec3 vPosW;
+varying vec3 vNrmW;
+varying vec2 vOvUv;
 varying float vEdge;
 varying float vStyl;
 void main() {
-  vec3 N = normalize(cross(dFdx(vPosW), dFdy(vPosW)));
-  if (dot(N, vPosW) < 0.0) N = -N;
-  float diff = max(dot(N, normalize(uSun)), 0.0);
-  vec3 col = vColor * mix(1.1, 0.4 + 0.85 * diff, vStyl);
+  vec3 N = normalize(vNrmW);
+  vec3 up = normalize(vPosW);
+  vec3 L = normalize(uSun);
+  vec3 V = normalize(cameraPosition - vPosW);
+  float diff = max(dot(N, L), 0.0);
+  // yon bag'irlar: tik joylar biroz to'qroq (soyali daralar), tekisliklar yorug'
+  float slope = 1.0 - clamp(dot(N, up), 0.0, 1.0);
+  float sky = 0.42 + 0.18 * dot(N, up);
+  float shade = sky + 0.78 * diff - 0.22 * slope;
+  vec3 col = vColor * mix(1.1, shade, vStyl);
+  // qorli cho'qqilarda yengil yaltirash
+  col += vec3(0.08) * pow(max(dot(reflect(-L, N), V), 0.0), 12.0) * smoothstep(0.55, 0.85, vColor.b) * vStyl;
   if (vWater > 0.5) {
     float shimmer = 0.5 + 0.5 * sin(vPosW.x * 260.0 + vPosW.y * 190.0 + uTime * 1.6);
-    col = mix(col, uWaterColor * (0.9 + 0.2 * shimmer), vStyl * 0.9);
+    vec3 water = uWaterColor * (0.85 + 0.2 * shimmer);
+    // quyosh aksi
+    float spec = pow(max(dot(reflect(-L, up), V), 0.0), 60.0);
+    water += vec3(0.9, 0.95, 1.0) * spec * 0.55;
+    col = mix(col, water, vStyl * 0.92);
   }
+  // davlat chegaralari (overlay teksturasining ko'k kanali)
+  float border = smoothstep(0.22, 0.7, texture2D(uOverlay, vOvUv).b);
+  col = mix(col, uBorderColor, border * 0.7 * vStyl);
   // chetlar globus bilan bir xil qorong'i rangga o'tadi
   col = mix(uDark, col, mix(1.0, smoothstep(0.02, 0.75, vEdge), uDim));
   float alpha = uOpacity * smoothstep(0.0, 0.35, vEdge);
@@ -254,7 +282,7 @@ export function buildTerrain(source, options) {
   }
 
   // ── Relyef to'ri
-  const cols = options.quality === 'full' ? 168 : 96
+  const cols = options.quality === 'full' ? 256 : 128
   const rows = Math.round(cols / 1.72)
   const vertexCount = (cols + 1) * (rows + 1)
   const positions = new Float32Array(vertexCount * 3)
@@ -263,6 +291,9 @@ export function buildTerrain(source, options) {
   const sat = new Float32Array(vertexCount * 3)
   const styl = new Float32Array(vertexCount * 3)
   const water = new Float32Array(vertexCount)
+  const ovUv = new Float32Array(vertexCount * 2)
+  const displaced = new Float32Array(vertexCount * 3)
+  const [olon0, olat0, olon1, olat1] = OVERLAY_BOUNDS
   const tmp = new Vector3()
   const c = new Color()
   const cs = new Color()
@@ -277,6 +308,10 @@ export function buildTerrain(source, options) {
       const edge = edgeAt(lat, lon)
       const h = isWater ? 0 : Math.pow(heightSample(lat, lon, 0), 1.15) * edge
       heights[k] = h
+      // to'liq ko'tarilgan holatdagi nuqta — silliq normallarni hisoblash uchun
+      tmp.multiplyScalar(1 + (h * exaggeration) / 1.0008)
+      displaced.set([tmp.x, tmp.y, tmp.z], k * 3)
+      ovUv.set([(lon - olon0) / (olon1 - olon0), (lat - olat0) / (olat1 - olat0)], k * 2)
       edges[k] = edge
       water[k] = isWater ? 1 : 0
 
@@ -286,13 +321,12 @@ export function buildTerrain(source, options) {
       if (isWater) c.copy(WATER)
       else {
         hypsometric(h, c)
-        // tabiiy rang tafovutlari saqlansin (cho'l, vodiy, tog')
-        c.lerp(cs, 0.28)
+        // haqiqiy (sun'iy yo'ldosh) ranglar ko'proq: cho'l, vodiy, o'rmon va qor tabiiy ko'rinsin
+        c.lerp(cs, 0.58)
         const uz = heightSample(lat, lon, 2)
-        if (uz > 0.02) c.lerp(UZ_TINT, uz * 0.2)
-        // low-poly uslubi: har bir yuzaga ozgina tasodifiy yorug'lik farqi
-        const jitter = 1 + (hash(i, j) - 0.5) * 0.09
-        c.multiplyScalar(jitter)
+        if (uz > 0.02) c.lerp(UZ_TINT, uz * 0.1)
+        // juda kichik tabiiy tafovut (bir xil «plastik» ko'rinmasin)
+        c.multiplyScalar(1 + (hash(i, j) - 0.5) * 0.03)
       }
       styl.set([c.r, c.g, c.b], k * 3)
     }
@@ -319,8 +353,17 @@ export function buildTerrain(source, options) {
   geometry.setAttribute('aSat', new BufferAttribute(sat, 3))
   geometry.setAttribute('aStyl', new BufferAttribute(styl, 3))
   geometry.setAttribute('aWater', new BufferAttribute(water, 1))
+  geometry.setAttribute('aOvUv', new BufferAttribute(ovUv, 2))
   geometry.setIndex(new BufferAttribute(indices, 1))
   geometry.computeBoundingSphere()
+
+  // Silliq normallar: ko'tarilgan relyef shaklidan hisoblanadi (yorug'lik-soya tog'larni hajmli ko'rsatadi)
+  const shape = new BufferGeometry()
+  shape.setAttribute('position', new BufferAttribute(displaced, 3))
+  shape.setIndex(new BufferAttribute(indices, 1))
+  shape.computeVertexNormals()
+  geometry.setAttribute('aNrm', shape.getAttribute('normal'))
+  shape.dispose()
 
   const sun = new Vector3(-0.55, 0.62, 0.56).normalize()
   const shared = {
@@ -336,6 +379,8 @@ export function buildTerrain(source, options) {
     uDark: { value: new Color(DARK) },
     uSun: { value: sun },
     uWaterColor: { value: WATER.clone() },
+    uOverlay: { value: options.overlay ?? null },
+    uBorderColor: { value: new Color('#f3ead2') },
   }
   const mesh = new Mesh(
     geometry,

@@ -1,7 +1,7 @@
 <script setup>
 // Skroll bilan boshqariladigan 3D sahna: kamera globusga yaqinlashib O'rta Osiyoga
 // «sho'ng'iydi», globus esa low-poly relyef xaritaga aylanadi (tog'lar, Orol, Amudaryo, Sirdaryo).
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { device } from '../../composables/useDevice'
 import { useScene } from '../../composables/useScene'
 import { theme } from '../../composables/useTheme'
@@ -18,6 +18,8 @@ const stickyEl = ref(null)
 const canvas = ref(null)
 const labelsLayer = ref(null)
 const citiesLayer = ref(null)
+const panelEl = ref(null)
+const hintEl = ref(null)
 
 // bosiladigan shaharlar va ochiq shahar oynasi
 const openCity = ref(null)
@@ -32,7 +34,7 @@ const enabled = device.tier !== 'static'
 const quality = device.tier === 'full' ? 'full' : 'lite'
 const progress = { value: 0 }
 
-const { status } = useScene(
+const { status, handle } = useScene(
   stickyEl,
   async ({ ready, fail }) => {
     const { createDiveScene } = await import('../three/engine/diveScene')
@@ -47,9 +49,11 @@ const { status } = useScene(
       dark: theme.value === 'dark',
       labels: labelEls.map((el) => {
         const def = mapLabels.find((l) => l.key === el.dataset.label)
-        return { el, lat: def.lat, lon: def.lon, priority: def.priority }
+        return { el, key: def.key, kind: def.kind, lat: def.lat, lon: def.lon, priority: def.priority }
       }),
       cityEls,
+      // yozuvlar shu elementlar ustiga tushmasin
+      obstacles: [document.querySelector('.site-header'), panelEl.value, hintEl.value],
       onFirstFrame: ready,
       onContextLost: fail,
     })
@@ -59,6 +63,8 @@ const { status } = useScene(
 
 /** 3D ishlamaydigan holat: oddiy (pin'siz) bo'lim + statik xarita */
 const isStatic = computed(() => !enabled || status.value === 'failed')
+// til almashganda yozuvlar kengligi o'zgaradi — 3D sahna ularni qayta o'lchaydi
+watch(locale, () => nextTick(() => handle.value?.remeasure?.()))
 const live = computed(() => status.value === 'ready')
 
 // Statik xarita: telefonda rasm kesib (cover) ko'rsatiladi va faqat asosiy yozuvlar qoladi
@@ -137,10 +143,10 @@ onBeforeUnmount(() => trigger?.kill())
             @click="openCity = c.key"
           >
             <span class="city-pin__dot" aria-hidden="true" />
-            {{ cityNames[c.key] }}
+            <span class="city-pin__name">{{ cityNames[c.key] }}</span>
           </button>
         </div>
-        <p class="dive__city-hint"><AppIcon name="sparkles" :size="15" /> {{ cityHint }}</p>
+        <p ref="hintEl" class="dive__city-hint"><AppIcon name="sparkles" :size="15" /> {{ cityHint }}</p>
       </template>
 
       <div class="container-x dive__intro">
@@ -177,7 +183,7 @@ onBeforeUnmount(() => trigger?.kill())
       </figure>
 
       <div class="container-x dive__panel-wrap">
-        <div class="dive__panel glass">
+        <div ref="panelEl" class="dive__panel glass">
           <h3 class="h3">{{ t('dive.panelTitle') }}</h3>
           <p class="mt-2 text-[0.95rem] leading-relaxed text-fg-soft">{{ t('dive.panelText') }}</p>
           <ul class="dive__legend">
@@ -289,6 +295,24 @@ onBeforeUnmount(() => trigger?.kill())
   background: #4ff0d8;
   box-shadow: 0 0 0 3px hsl(172 85% 60% / 0.25);
 }
+/* joy yetmaganda: faqat nuqta (bosiladi), nomi ustiga kelganda yoki fokusda chiqadi */
+.city-pin.is-compact {
+  gap: 0;
+  padding: 0.3rem;
+}
+.city-pin.is-compact .city-pin__name {
+  display: none;
+}
+.city-pin.is-compact:hover,
+.city-pin.is-compact:focus-visible {
+  gap: 0.4rem;
+  padding: 0.28rem 0.7rem 0.28rem 0.45rem;
+  z-index: 3;
+}
+.city-pin.is-compact:hover .city-pin__name,
+.city-pin.is-compact:focus-visible .city-pin__name {
+  display: inline;
+}
 .city-pin--capital {
   border-color: hsl(40 95% 65% / 0.7);
   font-size: 0.9rem;
@@ -392,6 +416,31 @@ onBeforeUnmount(() => trigger?.kill())
 .map-label--valley {
   color: hsl(140 50% 80%);
 }
+/* davlat nomlari: xaritadagidek yirik, siyrak harfli, yarim shaffof */
+.map-label--country {
+  padding: 0.1rem 0.3rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: hsl(44 40% 94% / 0.82);
+  background: none;
+  text-shadow:
+    0 1px 3px hsl(222 50% 4% / 0.9),
+    0 0 12px hsl(222 50% 4% / 0.6);
+}
+.map-label--plain {
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: hsl(70 45% 82%);
+  background: hsl(80 20% 10% / 0.45);
+}
+.map-label--mountain:not(.map-label--button) {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: hsl(30 18% 10% / 0.55);
+}
 .map-label--city {
   color: hsl(var(--primary-fg));
   background: hsl(var(--primary-strong));
@@ -460,7 +509,14 @@ onBeforeUnmount(() => trigger?.kill())
   .dive__city-hint {
     top: 76px;
     bottom: auto;
-    font-size: 0.78rem;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    justify-content: center;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.76rem;
+    line-height: 1.3;
+    text-align: center;
+    white-space: normal;
   }
   .dive__panel-wrap {
     top: auto;
@@ -469,6 +525,16 @@ onBeforeUnmount(() => trigger?.kill())
   }
   .dive__panel {
     padding: 1rem 1.1rem;
+  }
+  .city-pin {
+    padding: 0.22rem 0.55rem 0.22rem 0.38rem;
+    font-size: 0.74rem;
+  }
+  .city-pin--capital {
+    font-size: 0.8rem;
+  }
+  .dive__labels .map-label {
+    font-size: 0.72rem;
   }
   .dive__panel p {
     display: none;

@@ -9,22 +9,52 @@ export const DIVE_END = 0.8
 /** O'rta Osiyo markazi (globusni shu nuqtaga burish uchun) */
 export const CENTRAL_ASIA_CENTER = { lat: 41.5, lon: 65 }
 
+// priority: 1 — hamma ekranda (telefonda ham), 2 — planshet va kattaroq, 3 — faqat keng ekranda.
+// Ekranda joy yetmasa, kamroq muhim yozuv avtomatik suriladi yoki yashiriladi (diveScene.js).
 export const mapLabels = [
+  // suv havzalari va daryolar
   { key: 'caspian', lat: 41.6, lon: 51.4, kind: 'water', priority: 1 },
   { key: 'aral', lat: 45.35, lon: 59.9, kind: 'water', priority: 1 },
   { key: 'amu', lat: 40.35, lon: 62.6, kind: 'river', priority: 1 },
   { key: 'syr', lat: 44.55, lon: 66.0, kind: 'river', priority: 1 },
-  { key: 'tianshan', lat: 41.7, lon: 74.3, kind: 'mountain', priority: 1 },
-  { key: 'pamir', lat: 38.35, lon: 73.3, kind: 'mountain', priority: 1 },
-  { key: 'kyzylkum', lat: 42.3, lon: 64.2, kind: 'desert', priority: 1 },
-  { key: 'karakum', lat: 39.0, lon: 59.6, kind: 'desert', priority: 1 },
-  { key: 'tashkent', lat: TASHKENT.lat, lon: TASHKENT.lon, kind: 'city', priority: 1 },
   { key: 'zarafshon', lat: 39.85, lon: 65.6, kind: 'river', priority: 2 },
-  { key: 'ustyurt', lat: 43.7, lon: 56.4, kind: 'desert', priority: 2 },
-  { key: 'kopetdag', lat: 38.05, lon: 57.6, kind: 'mountain', priority: 2 },
-  { key: 'fergana', lat: 40.55, lon: 71.9, kind: 'valley', priority: 2 },
   { key: 'issykkul', lat: 42.45, lon: 77.3, kind: 'water', priority: 2 },
   { key: 'balkhash', lat: 46.3, lon: 75.2, kind: 'water', priority: 2 },
+  { key: 'aydarkul', lat: 40.95, lon: 66.9, kind: 'water', priority: 3 },
+  { key: 'sarygamysh', lat: 41.9, lon: 57.4, kind: 'water', priority: 3 },
+  { key: 'karabogaz', lat: 41.3, lon: 53.6, kind: 'water', priority: 3 },
+  { key: 'atrek', lat: 37.75, lon: 55.6, kind: 'river', priority: 3 },
+  { key: 'harirud', lat: 36.4, lon: 61.15, kind: 'river', priority: 3 },
+  // tog'lar
+  { key: 'tianshan', lat: 41.7, lon: 74.3, kind: 'mountain', priority: 1 },
+  { key: 'pamir', lat: 38.35, lon: 73.3, kind: 'mountain', priority: 1 },
+  { key: 'kopetdag', lat: 38.05, lon: 57.6, kind: 'mountain', priority: 2 },
+  { key: 'hindukush', lat: 35.9, lon: 69.8, kind: 'mountain', priority: 2 },
+  { key: 'hisor', lat: 39.05, lon: 68.4, kind: 'mountain', priority: 3 },
+  { key: 'turkiston', lat: 39.65, lon: 69.7, kind: 'mountain', priority: 3 },
+  { key: 'oloy', lat: 39.7, lon: 72.6, kind: 'mountain', priority: 3 },
+  { key: 'chotqol', lat: 41.55, lon: 70.6, kind: 'mountain', priority: 3 },
+  { key: 'nurota', lat: 40.5, lon: 66.3, kind: 'mountain', priority: 3 },
+  { key: 'qoratov', lat: 43.5, lon: 69.0, kind: 'mountain', priority: 3 },
+  // cho'l, dasht, vodiy va pasttekisliklar
+  { key: 'kyzylkum', lat: 42.3, lon: 64.2, kind: 'desert', priority: 1 },
+  { key: 'karakum', lat: 39.0, lon: 59.6, kind: 'desert', priority: 1 },
+  { key: 'ustyurt', lat: 43.7, lon: 56.4, kind: 'desert', priority: 2 },
+  { key: 'fergana', lat: 40.55, lon: 71.9, kind: 'valley', priority: 2 },
+  { key: 'betpakdala', lat: 45.9, lon: 70.0, kind: 'desert', priority: 2 },
+  { key: 'mirzachol', lat: 40.45, lon: 68.25, kind: 'desert', priority: 3 },
+  { key: 'muyunqum', lat: 44.3, lon: 71.3, kind: 'desert', priority: 3 },
+  { key: 'turan', lat: 43.1, lon: 61.9, kind: 'plain', priority: 3 },
+  // davlatlar
+  { key: 'uzbekistan', lat: 41.35, lon: 63.2, kind: 'country', priority: 2 },
+  { key: 'kazakhstan', lat: 46.8, lon: 66.5, kind: 'country', priority: 2 },
+  { key: 'turkmenistan', lat: 40.1, lon: 57.0, kind: 'country', priority: 2 },
+  { key: 'kyrgyzstan', lat: 40.95, lon: 75.4, kind: 'country', priority: 2 },
+  { key: 'tajikistan', lat: 38.75, lon: 70.8, kind: 'country', priority: 2 },
+  { key: 'afghanistan', lat: 36.4, lon: 66.0, kind: 'country', priority: 2 },
+  { key: 'iran', lat: 36.5, lon: 57.2, kind: 'country', priority: 3 },
+  { key: 'china', lat: 40.0, lon: 78.6, kind: 'country', priority: 3 },
+  { key: 'tashkent', lat: TASHKENT.lat, lon: TASHKENT.lon, kind: 'city', priority: 1 },
 ]
 
 /** Relyef xaritasidagi bosiladigan shaharlar (3D nur ustunlari + galereya) */
