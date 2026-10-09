@@ -1,0 +1,7 @@
+# GeoLearn — xavfsizlik muammosini topsangiz, shu yerga yozing.
+# Нашли уязвимость? Сообщите нам.
+Contact: https://t.me/Azamjonov2010
+Contact: tel:+998910042565
+Expires: 2027-10-09T00:00:00.000Z
+Preferred-Languages: uz, ru
+Canonical: https://geolearn.uz/.well-known/security.txt

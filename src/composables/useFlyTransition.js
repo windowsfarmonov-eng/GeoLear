@@ -35,8 +35,10 @@ function buildOverlay() {
         <ellipse cx="16" cy="16" rx="6" ry="13" fill="none" stroke="currentColor" stroke-width="2"/>
         <path d="M3 16h26" stroke="currentColor" stroke-width="2"/>
       </svg>
-      <span>${t('cta.opening')}</span>
+      <span></span>
     </div>`
+  // matn faqat textContent orqali qo'yiladi — HTML sifatida talqin qilinmaydi
+  el.querySelector('span').textContent = t('cta.opening')
   document.body.appendChild(el)
   return el
 }

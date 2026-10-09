@@ -363,7 +363,7 @@ const radius = computed(() => {
               </div>
               <p v-if="activePhoto" class="cg-credit">
                 {{ L.photo }}:
-                <a :href="activePhoto.source" target="_blank" rel="noopener">{{ activePhoto.artist }}</a>
+                <a :href="activePhoto.source" target="_blank" rel="noopener noreferrer">{{ activePhoto.artist }}</a>
                 · {{ activePhoto.license }} · Wikimedia Commons
               </p>
             </div>

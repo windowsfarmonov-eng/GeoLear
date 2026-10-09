@@ -30,7 +30,12 @@ onMounted(() => {
   // shriftlar yuklangach bo'lim balandliklari o'zgarishi mumkin
   document.fonts?.ready.then(() => ScrollTrigger.refresh())
   // URL'da #bo'lim bo'lsa — o'sha joyga
-  const hash = decodeURIComponent(window.location.hash.slice(1))
+  let hash = ''
+  try {
+    hash = decodeURIComponent(window.location.hash.slice(1))
+  } catch {
+    /* buzuq #hash (masalan, «%») — e'tiborsiz qoldiramiz */
+  }
   if (hash && document.getElementById(hash)) {
     window.setTimeout(() => scrollToSection(hash), 300)
   }

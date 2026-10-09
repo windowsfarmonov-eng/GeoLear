@@ -39,6 +39,10 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-CytJqAroG6XAIBXw21Y+HF00Y/bnXHjjpbB8Xed47R4='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
@@ -55,8 +59,20 @@
           "value": "max-age=63072000; includeSubDomains"
         },
         {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "off"
+        },
+        {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), hid=(), midi=(), magnetometer=(), gyroscope=(), accelerometer=(), display-capture=(), browsing-topics=(), interest-cohort=()"
         }
       ]
     }
