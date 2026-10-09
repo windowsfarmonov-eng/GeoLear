@@ -1,0 +1,420 @@
+{
+  "meta": {
+    "title": "GeoLearn — Geografiyani interaktiv o'rganish platformasi",
+    "description": "GeoLearn — maktablar uchun interaktiv geografiya platformasi: darslar va testlar, jonli o'yinlar, reyting, uy ishlari va 24/7 AI yordamchi. 1–11-sinflar, o'zbek va rus sinflari uchun."
+  },
+  "a11y": {
+    "skip": "Asosiy kontentga o'tish",
+    "home": "GeoLearn — bosh sahifa",
+    "openMenu": "Menyuni ochish",
+    "closeMenu": "Menyuni yopish",
+    "mainNav": "Asosiy menyu",
+    "language": "Sayt tili",
+    "toLight": "Yorug' rejimga o'tish",
+    "toDark": "Qorong'i rejimga o'tish",
+    "globe": "3D Yer shari: O'zbekiston va O'rta Osiyo belgilangan, Toshkent ustida marker",
+    "terrain": "O'rta Osiyoning 3D relyef xaritasi: tog'lar, daryolar va dengizlar",
+    "orb": "AI yordamchining 3D shisha shari"
+  },
+  "nav": {
+    "features": "Imkoniyatlar",
+    "teachers": "O'qituvchilarga",
+    "students": "O'quvchilarga",
+    "ai": "AI",
+    "faq": "FAQ"
+  },
+  "cta": {
+    "teacherPanel": "O'qituvchi paneli",
+    "studentLogin": "O'quvchi sifatida kirish",
+    "panelLogin": "Panelga kirish →",
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "opening": "Ochilmoqda…"
+  },
+  "hero": {
+    "badge": "7-sinf: «O'rta Osiyo tabiiy geografik o'lkasi» — 20+ mavzu tayyor",
+    "title": "Geografiyani o'rganishning eng qiziqarli yo'li",
+    "subtitle": "GeoLearn — maktablar uchun interaktiv geografiya platformasi. Darslar, testlar, jonli o'yinlar, reyting va AI yordamchi bir joyda: o'qituvchi boshqaradi, o'quvchi o'rganadi va bellashadi.",
+    "student": {
+      "title": "O'quvchi",
+      "text": "Darslarni o'qing, test ishlang, o'yinlarda bellashing."
+    },
+    "teacher": {
+      "title": "O'qituvchi",
+      "text": "Sinflar, darslar, uy ishlari va natijalar — bitta panelda."
+    },
+    "orbit": {
+      "lessons": "Darslar",
+      "game": "Jonli o'yin",
+      "ai": "AI yordamchi",
+      "rating": "Reyting"
+    },
+    "marker": "Toshkent",
+    "drag": "Sudrab aylantiring",
+    "scroll": "Pastga"
+  },
+  "trust": {
+    "label": "Platforma haqida qisqacha",
+    "items": [
+      {
+        "value": "1–11",
+        "label": "sinflar uchun mo'ljallangan"
+      },
+      {
+        "value": "UZ / RU",
+        "label": "o'zbek va rus sinflari uchun alohida kontent"
+      },
+      {
+        "value": "20+",
+        "label": "mavzu — 7-sinf, O'rta Osiyo"
+      },
+      {
+        "value": "24/7",
+        "label": "AI yordamchi savollarga javob beradi"
+      }
+    ]
+  },
+  "problem": {
+    "title": "Geografiya darsi zerikarli bo'lmasligi kerak",
+    "subtitle": "Odatdagi darsda o'quvchi tinglaydi, o'qituvchi esa kechqurunini test tuzish va tekshirishga sarflaydi. GeoLearn bu ishlarni bir joyga yig'adi.",
+    "before": "Odatdagi dars",
+    "after": "GeoLearn bilan",
+    "pairs": [
+      {
+        "before": "O'quvchi faqat tinglaydi, xarita — devordagi rasm.",
+        "after": "Interaktiv mavzular, jonli o'yinlar va reyting o'quvchini darsga qo'shadi."
+      },
+      {
+        "before": "Test tuzish va tekshirish o'qituvchining vaqtini oladi.",
+        "after": "PDF'dan mavzular ajratiladi, testlar avtomatik yaratiladi."
+      },
+      {
+        "before": "Natijalar daftarda — kim nimani tushunmagani ko'rinmaydi.",
+        "after": "Natija va reyting avtomatik hisoblanadi, «Takrorlash kerak» mavzular ko'rinib turadi."
+      },
+      {
+        "before": "Uy ishi, video va testlar har xil joyda tarqoq.",
+        "after": "Darslar, uy ishlari, videodarslar va AI yordamchi — bitta platformada."
+      }
+    ]
+  },
+  "dive": {
+    "title": "O'rta Osiyoga yaqinroq",
+    "text": "Pastga tushgan sari globus 7-sinfda o'rganiladigan o'lkaning relyef xaritasiga aylanadi.",
+    "panelTitle": "O'rta Osiyo tabiiy geografik o'lkasi",
+    "panelText": "7-sinf geografiyasi aynan shu o'lkani o'rganadi: Pomir va Tyan-Shan tog'lari, Amudaryo va Sirdaryo, Qizilqum va Qoraqum cho'llari, Orol va Kaspiy.",
+    "legend": {
+      "mountains": "Tog'lar",
+      "rivers": "Daryolar",
+      "lowlands": "Tekislik va cho'llar",
+      "water": "Ko'l va dengizlar",
+      "border": "O'zbekiston chegarasi"
+    },
+    "labels": {
+      "caspian": "Kaspiy dengizi",
+      "aral": "Orol dengizi",
+      "amu": "Amudaryo",
+      "syr": "Sirdaryo",
+      "zarafshon": "Zarafshon",
+      "tianshan": "Tyan-Shan",
+      "pamir": "Pomir",
+      "kyzylkum": "Qizilqum",
+      "karakum": "Qoraqum",
+      "ustyurt": "Ustyurt",
+      "kopetdag": "Ko'petdog'",
+      "fergana": "Farg'ona vodiysi",
+      "issykkul": "Issiqko'l",
+      "balkhash": "Balxash",
+      "tashkent": "Toshkent"
+    }
+  },
+  "curriculum": {
+    "title": "Darslar va mavzular",
+    "subtitle": "Hozir platformada 7-sinf geografiyasi — «O'rta Osiyo tabiiy geografik o'lkasi» bo'yicha 20+ mavzu bor. O'zbek va rus sinflari uchun kontent alohida bo'limlarda.",
+    "grade": "7-sinf",
+    "unit": "O'rta Osiyo tabiiy geografik o'lkasi",
+    "topics": [
+      "Geografik o'rni va chegaralari",
+      "Xaritalar va shartli belgilar",
+      "Topografik xaritalar",
+      "Soat mintaqalari",
+      "Geologik tuzilish",
+      "Iqlim",
+      "Havo massalari",
+      "Siklon va antisiklonlar",
+      "Tog' iqlimi",
+      "O'rta Osiyo suvlari"
+    ],
+    "more": "va yana 10+ mavzu",
+    "teacherFlow": {
+      "title": "O'qituvchi uchun",
+      "steps": [
+        "PDF yuklaysiz",
+        "Mavzular avtomatik ajratiladi",
+        "Har bir mavzuga test yaratiladi"
+      ]
+    },
+    "studentFlow": {
+      "title": "O'quvchi uchun",
+      "steps": [
+        "Mavzuni o'qiydi",
+        "Darhol test ishlaydi",
+        "Natijani ko'radi"
+      ]
+    },
+    "classes": "Platforma 1–11-sinflar uchun mo'ljallangan. O'qituvchi o'z darslarini ham qo'sha oladi."
+  },
+  "features": {
+    "title": "Darsga kerak bo'lgan hamma narsa",
+    "subtitle": "Bitta platforma: o'qituvchi uchun boshqaruv paneli, o'quvchi uchun shaxsiy portal.",
+    "items": {
+      "lessons": {
+        "title": "Darslar va testlar",
+        "text": "Mavzuni o'qish va darhol test ishlash. O'qituvchi PDF yuklasa, mavzular ajratiladi va testlar avtomatik tuziladi."
+      },
+      "games": {
+        "title": "Jonli o'yinlar",
+        "text": "5–30 savollik viktorina. O'quvchilar kod orqali qo'shiladi, natijalar real vaqtda ko'rinadi."
+      },
+      "rating": {
+        "title": "Reyting",
+        "text": "Ballar va o'rinlar avtomatik hisoblanadi — sinfdoshlar bilan sog'lom raqobat."
+      },
+      "video": {
+        "title": "Videodarslar",
+        "text": "YouTube videolarni darsga qo'shing va kim qancha ko'rganini kuzating."
+      },
+      "ai": {
+        "title": "AI yordamchi",
+        "text": "24/7 shaxsiy repetitor: savollarga javob beradi, rasmni tahlil qiladi, rasm yaratadi, ovozli javob beradi va fayl qabul qiladi."
+      },
+      "homework": {
+        "title": "Uy ishlari",
+        "text": "Butun sinfga yoki tanlangan o'quvchilarga vazifa, muddat va 0–100 ball bilan baho. Kech topshirilganlar belgilanadi."
+      },
+      "stats": {
+        "title": "Statistika",
+        "text": "Dashboard, grafiklar va hozir onlayn bo'lgan o'quvchilar — real vaqtda."
+      }
+    }
+  },
+  "teachers": {
+    "title": "O'qituvchilar uchun",
+    "subtitle": "Sinf, dars, uy ishi va natijalar bitta panelda. Kamroq qog'ozbozlik — ko'proq dars.",
+    "items": [
+      {
+        "title": "Boshqaruv paneli",
+        "text": "Umumiy statistika, grafiklar va faollik bir qarashda."
+      },
+      {
+        "title": "Faol o'quvchilar",
+        "text": "Hozir kim onlayn ekanini real vaqtda ko'ring."
+      },
+      {
+        "title": "Sinflar",
+        "text": "7-A, 11-V kabi sinflar yarating, o'quvchilar ro'yxatini fayldan yuklang."
+      },
+      {
+        "title": "Darslar va mavzular",
+        "text": "Dars va mavzu qo'shing, PDF'dan mavzularni ajrating, testlarni avtomatik yarating."
+      },
+      {
+        "title": "Uy ishlari",
+        "text": "Butun sinfga yoki tanlangan o'quvchilarga vazifa bering, muddat qo'ying, 0–100 ball va izoh bilan baholang. Kech topshirilganlar belgilanadi."
+      },
+      {
+        "title": "Jonli o'yinlar",
+        "text": "Kahoot uslubidagi viktorina: 5–30 savol, o'quvchilar kod orqali qo'shiladi, natijalar real vaqtda."
+      },
+      {
+        "title": "Natijalar va reyting",
+        "text": "Har bir o'quvchi va sinf bo'yicha natijalar."
+      },
+      {
+        "title": "Videodarslar",
+        "text": "YouTube videolarni qo'shing va kim qancha ko'rganini kuzating."
+      },
+      {
+        "title": "AI yordamchi",
+        "text": "Platforma ma'lumotlariga tayanib javob beradi, rasmni tahlil qiladi va yaratadi, ovozli javob beradi, fayl qabul qiladi."
+      },
+      {
+        "title": "AI Logs",
+        "text": "O'quvchilarning AI bilan yozishmalarini kuzating, nojo'ya so'zlar bo'yicha ogohlantirish oling."
+      },
+      {
+        "title": "Sozlamalar",
+        "text": "Yorug' yoki qorong'i mavzu, til va maktab logotipi."
+      }
+    ],
+    "screenAlt": "O'qituvchi paneli (Dashboard) skrinshoti",
+    "note": "O'qituvchi akkaunti bo'yicha savollar bo'lsa,",
+    "noteLink": "FAQ bo'limiga qarang"
+  },
+  "students": {
+    "title": "O'quvchilar uchun",
+    "subtitle": "O'z natijangizni ko'ring, kuchli tomonlaringizni biling va sinfdoshlar bilan bellashing.",
+    "items": [
+      {
+        "title": "Shaxsiy dashboard",
+        "text": "Reytingdagi o'rin, ballar, o'rtacha natija va ishlangan testlar. Oxirgi 14 kunlik faollik grafigi."
+      },
+      {
+        "title": "Kuchli tomonlar",
+        "text": "«Kuchli tomonlar» va «Takrorlash kerak» mavzular ko'rinadi, sinf o'rtachasi bilan taqqoslash mumkin."
+      },
+      {
+        "title": "Darslar",
+        "text": "Mavzuni o'qing va darhol test ishlang."
+      },
+      {
+        "title": "Uy ishlari",
+        "text": "Har bir vazifaning holati ko'rinib turadi."
+      },
+      {
+        "title": "O'yinlar",
+        "text": "O'qituvchi bergan kod bilan jonli o'yinga qo'shiling."
+      },
+      {
+        "title": "Reyting",
+        "text": "Sinfdoshlar bilan raqobatlashing."
+      },
+      {
+        "title": "Videodarslar",
+        "text": "Mavzu bo'yicha videolarni ko'ring."
+      },
+      {
+        "title": "AI yordamchi",
+        "text": "24/7 savollaringizga javob beradigan shaxsiy repetitor."
+      }
+    ],
+    "statusTitle": "Uy ishi holati",
+    "statuses": [
+      "Yangi",
+      "Topshirildi",
+      "Baholandi"
+    ],
+    "screenAlt": "O'quvchi portali (shaxsiy dashboard) skrinshoti",
+    "note": "O'quvchi o'zi ro'yxatdan o'ta oladi."
+  },
+  "game": {
+    "title": "Jonli o'yinlar",
+    "subtitle": "Dars oxirida sinfni jonlantiring: o'qituvchi o'yin yaratadi, o'quvchilar kodni kiritadi, natijalar shu zahoti ekranda.",
+    "steps": [
+      "O'qituvchi 5–30 savollik o'yin yaratadi",
+      "O'quvchilar kod orqali qo'shiladi",
+      "Ballar real vaqtda yangilanadi"
+    ],
+    "codeLabel": "O'yin kodi",
+    "players": "Qatnashchilar",
+    "joined": "qo'shildi",
+    "leaderboard": "Natijalar",
+    "live": "Jonli",
+    "points": "ball",
+    "demo": "Namoyish",
+    "question": "O'rta Osiyodagi eng baland tog' tizimi qaysi?",
+    "answers": [
+      "Pomir",
+      "Tyan-Shan",
+      "Ko'petdog'",
+      "Hisor"
+    ]
+  },
+  "ai": {
+    "title": "AI yordamchi — 24/7 shaxsiy repetitor",
+    "subtitle": "Savol bering — AI platformadagi darslar asosida tushuntiradi. Rasmni tahlil qiladi, rasm yaratadi, ovozli javob beradi va fayl qabul qiladi.",
+    "chatTitle": "GeoLearn AI",
+    "online": "Onlayn",
+    "typing": "yozmoqda…",
+    "placeholder": "Savolingizni yozing…",
+    "send": "Yuborish",
+    "messages": [
+      {
+        "q": "Amudaryo qayerdan boshlanadi?",
+        "a": "Amudaryo Pomir tog'laridan boshlanadigan Panj va Vaxsh daryolarining qo'shilishidan hosil bo'ladi va Turon pasttekisligi orqali Orol dengizi tomon oqadi."
+      },
+      {
+        "q": "Siklon va antisiklonning farqi nima?",
+        "a": "Siklon markazida havo bosimi past bo'ladi: havo ko'tariladi, bulut va yog'in ko'payadi. Antisiklon markazida bosim yuqori, havo pastga tushadi — shuning uchun ob-havo ochiq va quruq bo'ladi."
+      },
+      {
+        "q": "Toshkent qaysi soat mintaqasida?",
+        "a": "Toshkent UTC+5 soat mintaqasida. O'zbekistonning butun hududi shu bitta mintaqada joylashgan."
+      }
+    ],
+    "caps": [
+      "Rasm tahlili",
+      "Rasm yaratish",
+      "Ovozli javob",
+      "Fayl qabul qiladi",
+      "Platforma ma'lumotlariga tayanadi"
+    ],
+    "safetyTitle": "O'qituvchi nazoratida",
+    "safetyText": "O'qituvchi «AI Logs» bo'limida o'quvchilarning AI bilan yozishmalarini ko'radi va nojo'ya so'zlar bo'yicha ogohlantirish oladi."
+  },
+  "how": {
+    "title": "Qanday ishlaydi",
+    "subtitle": "Uch qadam — va sinf platformada.",
+    "steps": [
+      {
+        "title": "O'qituvchi sinf va dars yaratadi",
+        "text": "Sinf ochiladi, o'quvchilar ro'yxati fayldan yuklanadi, darslar va testlar qo'shiladi."
+      },
+      {
+        "title": "O'quvchi ro'yxatdan o'tib o'qiydi va test ishlaydi",
+        "text": "Mavzuni o'qiydi, testni darhol ishlaydi, uy ishini topshiradi va jonli o'yinlarda qatnashadi."
+      },
+      {
+        "title": "Natija va reyting avtomatik hisoblanadi",
+        "text": "O'qituvchi har bir o'quvchi va sinf natijasini ko'radi, o'quvchi esa o'z o'rnini va takrorlash kerak bo'lgan mavzularni biladi."
+      }
+    ]
+  },
+  "roles": {
+    "title": "Kim sifatida kirasiz?",
+    "subtitle": "Ikki portal — ikki xil vazifa. O'zingizga keraklisini tanlang.",
+    "teacher": {
+      "title": "O'qituvchi",
+      "text": "Sinflar, darslar, uy ishlari, o'yinlar va natijalarni bitta paneldan boshqaring.",
+      "items": [
+        "Sinflar va o'quvchilar ro'yxati",
+        "Darslar, PDF'dan mavzu va testlar",
+        "Uy ishlari va baholash",
+        "Jonli o'yinlar va reyting",
+        "AI Logs nazorati"
+      ]
+    },
+    "student": {
+      "title": "O'quvchi",
+      "text": "Darslarni o'qing, test ishlang, o'yinlarda qatnashing va reytingda ko'tariling.",
+      "items": [
+        "Shaxsiy dashboard va natijalar",
+        "Darslar va testlar",
+        "Uy ishlari",
+        "Jonli o'yinlar va reyting",
+        "24/7 AI yordamchi"
+      ]
+    }
+  },
+  "faq": {
+    "title": "Ko'p beriladigan savollar",
+    "subtitle": "Javob topilmasa — biz bilan bog'laning."
+  },
+  "final": {
+    "title": "Geografiya darslarini birga jonlantiramiz",
+    "text": "O'qituvchi bo'lsangiz — panelga kiring. O'quvchi bo'lsangiz — ro'yxatdan o'ting va birinchi mavzudan boshlang."
+  },
+  "footer": {
+    "about": "GeoLearn — maktablar uchun geografiyani interaktiv o'rgatuvchi onlayn platforma.",
+    "portals": "Portallar",
+    "sections": "Bo'limlar",
+    "contact": "Aloqa",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "credits": "Xarita va teksturalar: NASA Visible Earth, Natural Earth."
+  },
+  "common": {
+    "loading3d": "3D sahna yuklanmoqda",
+    "fallbackGlobe": "O'rta Osiyo belgilangan Yer shari",
+    "fallbackTerrain": "O'rta Osiyo relyef xaritasi"
+  }
+}

@@ -1,0 +1,705 @@
+{
+ "tashkent": [
+  {
+   "file": "/cities/tashkent/1.webp",
+   "title": "Chirchiq river. Tashkent 01.jpg",
+   "artist": "Jamshid Nurkulov",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Chirchiq_river._Tashkent_01.jpg"
+  },
+  {
+   "file": "/cities/tashkent/2.webp",
+   "title": "Clouds over the Charvak Reservoir.jpg",
+   "artist": "26D",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Clouds_over_the_Charvak_Reservoir.jpg"
+  },
+  {
+   "file": "/cities/tashkent/3.webp",
+   "title": "Greater Chimgan Mountain.JPG",
+   "artist": "Jabez at English Wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Greater_Chimgan_Mountain.JPG"
+  },
+  {
+   "file": "/cities/tashkent/4.webp",
+   "title": "Ugam-Chatkal State Biosphere Reserve in January.jpg",
+   "artist": "26D",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Ugam-Chatkal_State_Biosphere_Reserve_in_January.jpg"
+  },
+  {
+   "file": "/cities/tashkent/5.webp",
+   "title": "Перевал Тойпан.jpg",
+   "artist": "Ivan Kondyukov",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B5%D1%80%D0%B5%D0%B2%D0%B0%D0%BB_%D0%A2%D0%BE%D0%B9%D0%BF%D0%B0%D0%BD.jpg"
+  }
+ ],
+ "samarkand": [
+  {
+   "file": "/cities/samarkand/1.webp",
+   "title": "Река Зеравшан возле города Пенджикент (river Zarafshon by Panjakent).jpg",
+   "artist": "Petar Milošević",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A0%D0%B5%D0%BA%D0%B0_%D0%97%D0%B5%D1%80%D0%B0%D0%B2%D1%88%D0%B0%D0%BD_%D0%B2%D0%BE%D0%B7%D0%BB%D0%B5_%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B0_%D0%9F%D0%B5%D0%BD%D0%B4%D0%B6%D0%B8%D0%BA%D0%B5%D0%BD%D1%82_(river_Zarafshon_by_Panjakent).jpg"
+  },
+  {
+   "file": "/cities/samarkand/2.webp",
+   "title": "Kitob Zarafshan Range.jpg",
+   "artist": "Ymblanter",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kitob_Zarafshan_Range.jpg"
+  },
+  {
+   "file": "/cities/samarkand/3.webp",
+   "title": "Forest in the valley of Aman-Kutan Say and M-39 road.jpg",
+   "artist": "Carpodacus",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Forest_in_the_valley_of_Aman-Kutan_Say_and_M-39_road.jpg"
+  },
+  {
+   "file": "/cities/samarkand/4.webp",
+   "title": "Kashkadar 1.jpg",
+   "artist": "LBM1948",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kashkadar_1.jpg"
+  },
+  {
+   "file": "/cities/samarkand/5.webp",
+   "title": "SamarkandVil landscape2.JPG",
+   "artist": "Alaexis",
+   "license": "CC BY-SA 2.5",
+   "source": "https://commons.wikimedia.org/wiki/File:SamarkandVil_landscape2.JPG"
+  }
+ ],
+ "bukhara": [
+  {
+   "file": "/cities/bukhara/1.webp",
+   "title": "Kazakh yurts at night in the Kyzylkum desert, Uzbekistan.jpg",
+   "artist": "Carsten Siegel",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kazakh_yurts_at_night_in_the_Kyzylkum_desert,_Uzbekistan.jpg"
+  },
+  {
+   "file": "/cities/bukhara/2.webp",
+   "title": "Пески Кызылкума.jpg",
+   "artist": "Arina Pan",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B5%D1%81%D0%BA%D0%B8_%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB%D0%BA%D1%83%D0%BC%D0%B0.jpg"
+  },
+  {
+   "file": "/cities/bukhara/3.webp",
+   "title": "Qizil Qum 1.jpg",
+   "artist": "LBM1948",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Qizil_Qum_1.jpg"
+  },
+  {
+   "file": "/cities/bukhara/4.webp",
+   "title": "Aidar-Kul.JPG",
+   "artist": "Jabez at English Wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Aidar-Kul.JPG"
+  },
+  {
+   "file": "/cities/bukhara/5.webp",
+   "title": "Kyzylkum Desert in Uzbekistan.jpg",
+   "artist": "Bgag",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kyzylkum_Desert_in_Uzbekistan.jpg"
+  }
+ ],
+ "khiva": [
+  {
+   "file": "/cities/khiva/1.webp",
+   "title": "LAmou Darya (Khorezm, Ouzbékistan) (5609625559).jpg",
+   "artist": "Jean-Pierre Dalbéra from Paris, France",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LAmou_Darya_(Khorezm,_Ouzb%C3%A9kistan)_(5609625559).jpg"
+  },
+  {
+   "file": "/cities/khiva/2.webp",
+   "title": "Camel-in-karakum-desert.jpg",
+   "artist": "Allan Mustard",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Camel-in-karakum-desert.jpg"
+  },
+  {
+   "file": "/cities/khiva/3.webp",
+   "title": "Amu Darya Panorama.jpg",
+   "artist": "Voltmetro",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Amu_Darya_Panorama.jpg"
+  },
+  {
+   "file": "/cities/khiva/4.webp",
+   "title": "LAmou Darya (Khorezm, Ouzbékistan) (5609636905).jpg",
+   "artist": "Jean-Pierre Dalbéra from Paris, France",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LAmou_Darya_(Khorezm,_Ouzb%C3%A9kistan)_(5609636905).jpg"
+  },
+  {
+   "file": "/cities/khiva/5.webp",
+   "title": "Karakum desert fortress.jpg",
+   "artist": "Stefan Krasowski",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Karakum_desert_fortress.jpg"
+  }
+ ],
+ "nukus": [
+  {
+   "file": "/cities/nukus/1.webp",
+   "title": "Aral Sea 1989-2008.jpg",
+   "artist": "NASA, derivative work by Zafiroblue05 at en.wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Aral_Sea_1989-2008.jpg"
+  },
+  {
+   "file": "/cities/nukus/2.webp",
+   "title": "Sunrise on the Aral Sea from the top of the Ustyurt Plateau cliff - panoramio.jpg",
+   "artist": "svenfischer.fr",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sunrise_on_the_Aral_Sea_from_the_top_of_the_Ustyurt_Plateau_cliff_-_panoramio.jpg"
+  },
+  {
+   "file": "/cities/nukus/3.webp",
+   "title": "Amu darya delta.jpg",
+   "artist": "Science and Analysis Laboratory, NASA-Johnson Space Center.",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Amu_darya_delta.jpg"
+  },
+  {
+   "file": "/cities/nukus/4.webp",
+   "title": "Amudarya by Nukus, Uzbekistan (Амударья рядом города Нукус).jpg",
+   "artist": "Petar Milošević",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Amudarya_by_Nukus,_Uzbekistan_(%D0%90%D0%BC%D1%83%D0%B4%D0%B0%D1%80%D1%8C%D1%8F_%D1%80%D1%8F%D0%B4%D0%BE%D0%BC_%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B0_%D0%9D%D1%83%D0%BA%D1%83%D1%81).jpg"
+  },
+  {
+   "file": "/cities/nukus/5.webp",
+   "title": "Moynaq, Aral Sea (6226807306).jpg",
+   "artist": "Arian Zwegers",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Moynaq,_Aral_Sea_(6226807306).jpg"
+  }
+ ],
+ "termez": [
+  {
+   "file": "/cities/termez/1.webp",
+   "title": "Surkhandarya River.jpg",
+   "artist": "Carpodacus",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Surkhandarya_River.jpg"
+  },
+  {
+   "file": "/cities/termez/2.webp",
+   "title": "Cloud Dynamics Over Surkhan Mountains.jpg",
+   "artist": "Panpanchik",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Cloud_Dynamics_Over_Surkhan_Mountains.jpg"
+  },
+  {
+   "file": "/cities/termez/3.webp",
+   "title": "Aerial view of Amu Darya River on the border of Afghanistan and Uzbekistan.jpg",
+   "artist": "Obakeneko",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Amu_Darya_River_on_the_border_of_Afghanistan_and_Uzbekistan.jpg"
+  },
+  {
+   "file": "/cities/termez/4.webp",
+   "title": "Сурхан-10.jpg",
+   "artist": "Marat Nadjibaev",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A1%D1%83%D1%80%D1%85%D0%B0%D0%BD-10.jpg"
+  },
+  {
+   "file": "/cities/termez/5.webp",
+   "title": "Kuhitang Mountains and green slopes Surkhan Nature Reserve.jpg",
+   "artist": "Panpanchik",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kuhitang_Mountains_and_green_slopes_Surkhan_Nature_Reserve.jpg"
+  }
+ ],
+ "andijan": [
+  {
+   "file": "/cities/andijan/1.webp",
+   "title": "Ferganadall (Satellitebild).jpg",
+   "artist": "NASA Original uploader was Otets at lb.wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Ferganadall_(Satellitebild).jpg"
+  },
+  {
+   "file": "/cities/andijan/2.webp",
+   "title": "Andijan reservoir.JPG",
+   "artist": "Peter in s",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Andijan_reservoir.JPG"
+  },
+  {
+   "file": "/cities/andijan/3.webp",
+   "title": "Confluence of Naryn and Kara Darya NASA.jpg",
+   "artist": "NASA",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Confluence_of_Naryn_and_Kara_Darya_NASA.jpg"
+  },
+  {
+   "file": "/cities/andijan/4.webp",
+   "title": "Fergana Range 1.jpg",
+   "artist": "Ekrem Canli",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Fergana_Range_1.jpg"
+  },
+  {
+   "file": "/cities/andijan/5.webp",
+   "title": "Naryn Panaorama.jpg",
+   "artist": "User:Zossolino",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Naryn_Panaorama.jpg"
+  }
+ ],
+ "qarshi": [
+  {
+   "file": "/cities/qarshi/1.webp",
+   "title": "Kashkadarya river from bridge.jpg",
+   "artist": "MirfayzbekAbdullayev",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kashkadarya_river_from_bridge.jpg"
+  },
+  {
+   "file": "/cities/qarshi/2.webp",
+   "title": "Landscape of mountain regions of Shahrisabz district, Kashkadarya region.jpg",
+   "artist": "Akobirolmasov diplomat",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Landscape_of_mountain_regions_of_Shahrisabz_district,_Kashkadarya_region.jpg"
+  },
+  {
+   "file": "/cities/qarshi/3.webp",
+   "title": "ISS023-E-43285 - View of Uzbekistan.jpg",
+   "artist": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:ISS023-E-43285_-_View_of_Uzbekistan.jpg"
+  },
+  {
+   "file": "/cities/qarshi/4.webp",
+   "title": "Mountain vegetation landscape of Kashkadarya region.jpg",
+   "artist": "Akobirolmasov diplomat",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Mountain_vegetation_landscape_of_Kashkadarya_region.jpg"
+  },
+  {
+   "file": "/cities/qarshi/5.webp",
+   "title": "Shahrisabz district, Kashkadarya region.jpg",
+   "artist": "Akobirolmasov diplomat",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Shahrisabz_district,_Kashkadarya_region.jpg"
+  }
+ ],
+ "almaty": [
+  {
+   "file": "/cities/almaty/1.webp",
+   "title": "Big Almaty Lake from pass.jpg",
+   "artist": "BitLord~ruwiki",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Big_Almaty_Lake_from_pass.jpg"
+  },
+  {
+   "file": "/cities/almaty/2.webp",
+   "title": "Kazakhstan banner Trans-Ili Alatau.jpg",
+   "artist": "Екатерина Борисова",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kazakhstan_banner_Trans-Ili_Alatau.jpg"
+  },
+  {
+   "file": "/cities/almaty/3.webp",
+   "title": "Charyn Canyon, Kazakhstan 03.jpg",
+   "artist": "Bgag",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Charyn_Canyon,_Kazakhstan_03.jpg"
+  },
+  {
+   "file": "/cities/almaty/4.webp",
+   "title": "Kolsai lakes.Mountains.jpg",
+   "artist": "Dimash Kenesbek",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kolsai_lakes.Mountains.jpg"
+  },
+  {
+   "file": "/cities/almaty/5.webp",
+   "title": "Medeu gorge (0291).jpg",
+   "artist": "ShadZ01",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Medeu_gorge_(0291).jpg"
+  }
+ ],
+ "bishkek": [
+  {
+   "file": "/cities/bishkek/1.webp",
+   "title": "Ала-Арча сверху (1).jpg",
+   "artist": "Nikolai Bulykin",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%90%D0%BB%D0%B0-%D0%90%D1%80%D1%87%D0%B0_%D1%81%D0%B2%D0%B5%D1%80%D1%85%D1%83_(1).jpg"
+  },
+  {
+   "file": "/cities/bishkek/2.webp",
+   "title": "Kyrgyz Alatau range, Chuy Province (1).jpg",
+   "artist": "Radosław Botev",
+   "license": "CC BY 3.0 pl",
+   "source": "https://commons.wikimedia.org/wiki/File:Kyrgyz_Alatau_range,_Chuy_Province_(1).jpg"
+  },
+  {
+   "file": "/cities/bishkek/3.webp",
+   "title": "E8115-Chu-Valley.jpg",
+   "artist": "Vmenkov",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:E8115-Chu-Valley.jpg"
+  },
+  {
+   "file": "/cities/bishkek/4.webp",
+   "title": "Lake Issyk-Kul, Kyrgyzstan.jpg",
+   "artist": "Bgag",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lake_Issyk-Kul,_Kyrgyzstan.jpg"
+  },
+  {
+   "file": "/cities/bishkek/5.webp",
+   "title": "E7840-Shu-city-river-crossing.jpg",
+   "artist": "Vmenkov",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:E7840-Shu-city-river-crossing.jpg"
+  }
+ ],
+ "dushanbe": [
+  {
+   "file": "/cities/dushanbe/1.webp",
+   "title": "Varzob, Tajikistan (19594074619).jpg",
+   "artist": "lensnmatter",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Varzob,_Tajikistan_(19594074619).jpg"
+  },
+  {
+   "file": "/cities/dushanbe/2.webp",
+   "title": "Timurdara lake (1).jpg",
+   "artist": "Prospector",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Timurdara_lake_(1).jpg"
+  },
+  {
+   "file": "/cities/dushanbe/3.webp",
+   "title": "Iskander-kul, Tajikistan.JPG",
+   "artist": "Rjruiziii",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Iskander-kul,_Tajikistan.JPG"
+  },
+  {
+   "file": "/cities/dushanbe/4.webp",
+   "title": "Nurek Dam.JPG",
+   "artist": "Ibrahim Rustamov (Ibrahimjon)",
+   "license": "CC BY-SA 2.5",
+   "source": "https://commons.wikimedia.org/wiki/File:Nurek_Dam.JPG"
+  },
+  {
+   "file": "/cities/dushanbe/5.webp",
+   "title": "Varzob river 3.jpg",
+   "artist": "Шухрат Саъдиев",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Varzob_river_3.jpg"
+  }
+ ],
+ "ashgabat": [
+  {
+   "file": "/cities/ashgabat/1.webp",
+   "title": "Kopet Dag mountains (46194531771).jpg",
+   "artist": "Hans Birger Nilsen",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kopet_Dag_mountains_(46194531771).jpg"
+  },
+  {
+   "file": "/cities/ashgabat/2.webp",
+   "title": "Camel-in-karakum-desert.jpg",
+   "artist": "Allan Mustard",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Camel-in-karakum-desert.jpg"
+  },
+  {
+   "file": "/cities/ashgabat/3.webp",
+   "title": "Darvasa gas crater panorama crop.jpg",
+   "artist": "Tormod Sandtorv (original picture) Hellbus (derived work)",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Darvasa_gas_crater_panorama_crop.jpg"
+  },
+  {
+   "file": "/cities/ashgabat/4.webp",
+   "title": "Hanhowuz reservoir 2014.jpg",
+   "artist": "NASA Landsat 8",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Hanhowuz_reservoir_2014.jpg"
+  },
+  {
+   "file": "/cities/ashgabat/5.webp",
+   "title": "Kow Ata Underground Lake - Turkmenistan, Baharden (Baharly) - panoramio.jpg",
+   "artist": "flydime",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kow_Ata_Underground_Lake_-_Turkmenistan,_Baharden_(Baharly)_-_panoramio.jpg"
+  }
+ ],
+ "caspian": [
+  {
+   "file": "/cities/caspian/1.webp",
+   "title": "Caspian Sea Smoke Plumes sept 11 2010.jpg",
+   "artist": "NASA/JSC Gateway to Astronaut Photography of Earth. Caption by M. Justin Wilkins",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Caspian_Sea_Smoke_Plumes_sept_11_2010.jpg"
+  },
+  {
+   "file": "/cities/caspian/2.webp",
+   "title": "Bloom in the Caspian Sea (MODIS 2025-09-12).jpg",
+   "artist": "MODIS Land Rapid Response Team, NASA GSFC",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Bloom_in_the_Caspian_Sea_(MODIS_2025-09-12).jpg"
+  },
+  {
+   "file": "/cities/caspian/3.webp",
+   "title": "Caspian Sea Kazakhstan Mangistau.jpg",
+   "artist": "AnastassiyaL",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Caspian_Sea_Kazakhstan_Mangistau.jpg"
+  },
+  {
+   "file": "/cities/caspian/4.webp",
+   "title": "Caspian Sea Turkmenbashy.jpg",
+   "artist": "Bayram A",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Caspian_Sea_Turkmenbashy.jpg"
+  },
+  {
+   "file": "/cities/caspian/5.webp",
+   "title": "Aktau Sunset over the Caspian Sea.jpg",
+   "artist": "Rassim",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg"
+  }
+ ],
+ "aral": [
+  {
+   "file": "/cities/aral/1.webp",
+   "title": "Aral Sea 1989-2008.jpg",
+   "artist": "NASA, derivative work by Zafiroblue05 at en.wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Aral_Sea_1989-2008.jpg"
+  },
+  {
+   "file": "/cities/aral/2.webp",
+   "title": "AralSea(1997) NASA STS085-503-119.jpg",
+   "artist": "NASA",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:AralSea(1997)_NASA_STS085-503-119.jpg"
+  },
+  {
+   "file": "/cities/aral/3.webp",
+   "title": "The Aral Sea (MODIS 2019-10-11).jpg",
+   "artist": "MODIS Land Rapid Response Team, NASA GSFC",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:The_Aral_Sea_(MODIS_2019-10-11).jpg"
+  },
+  {
+   "file": "/cities/aral/4.webp",
+   "title": "ISS015-E-27539 - View of Earth.jpg",
+   "artist": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:ISS015-E-27539_-_View_of_Earth.jpg"
+  },
+  {
+   "file": "/cities/aral/5.webp",
+   "title": "Солевые наносы Аралкума.jpg",
+   "artist": "NatalieChunina",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A1%D0%BE%D0%BB%D0%B5%D0%B2%D1%8B%D0%B5_%D0%BD%D0%B0%D0%BD%D0%BE%D1%81%D1%8B_%D0%90%D1%80%D0%B0%D0%BB%D0%BA%D1%83%D0%BC%D0%B0.jpg"
+  }
+ ],
+ "amu": [
+  {
+   "file": "/cities/amu/1.webp",
+   "title": "Amu darya delta.jpg",
+   "artist": "Science and Analysis Laboratory, NASA-Johnson Space Center.",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Amu_darya_delta.jpg"
+  },
+  {
+   "file": "/cities/amu/2.webp",
+   "title": "Panj before estuary of Bartang.jpg",
+   "artist": "Kondephy",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Panj_before_estuary_of_Bartang.jpg"
+  },
+  {
+   "file": "/cities/amu/3.webp",
+   "title": "Amu Darya Panorama.jpg",
+   "artist": "Voltmetro",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Amu_Darya_Panorama.jpg"
+  },
+  {
+   "file": "/cities/amu/4.webp",
+   "title": "Vakhsh River - panoramio.jpg",
+   "artist": "5had3r",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Vakhsh_River_-_panoramio.jpg"
+  },
+  {
+   "file": "/cities/amu/5.webp",
+   "title": "Amu Darya (MODIS).jpg",
+   "artist": "MODIS Land Rapid Response Team, NASA GSFC",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Amu_Darya_(MODIS).jpg"
+  }
+ ],
+ "syr": [
+  {
+   "file": "/cities/syr/1.webp",
+   "title": "Syr Darya.jpg",
+   "artist": "Petar Milošević",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Syr_Darya.jpg"
+  },
+  {
+   "file": "/cities/syr/2.webp",
+   "title": "Syr Darya river.jpg",
+   "artist": "Petar Milošević",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Syr_Darya_river.jpg"
+  },
+  {
+   "file": "/cities/syr/3.webp",
+   "title": "Syr Darya River Floodplain, Kazakhstan, Central Asia.JPG",
+   "artist": "ISS Expedition 25 crew",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Syr_Darya_River_Floodplain,_Kazakhstan,_Central_Asia.JPG"
+  },
+  {
+   "file": "/cities/syr/4.webp",
+   "title": "Naryn Panaorama.jpg",
+   "artist": "User:Zossolino",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Naryn_Panaorama.jpg"
+  },
+  {
+   "file": "/cities/syr/5.webp",
+   "title": "Syr Darya Baikonur.jpg",
+   "artist": "Jialiang Gao peace-on-earth",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Syr_Darya_Baikonur.jpg"
+  }
+ ],
+ "zarafshon": [
+  {
+   "file": "/cities/zarafshon/1.webp",
+   "title": "Река Зеравшан возле города Пенджикент (river Zarafshon by Panjakent).jpg",
+   "artist": "Petar Milošević",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A0%D0%B5%D0%BA%D0%B0_%D0%97%D0%B5%D1%80%D0%B0%D0%B2%D1%88%D0%B0%D0%BD_%D0%B2%D0%BE%D0%B7%D0%BB%D0%B5_%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B0_%D0%9F%D0%B5%D0%BD%D0%B4%D0%B6%D0%B8%D0%BA%D0%B5%D0%BD%D1%82_(river_Zarafshon_by_Panjakent).jpg"
+  },
+  {
+   "file": "/cities/zarafshon/2.webp",
+   "title": "Zarafshan river near Panjakent - 01.jpg",
+   "artist": "Satdeep Gill",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Zarafshan_river_near_Panjakent_-_01.jpg"
+  },
+  {
+   "file": "/cities/zarafshon/3.webp",
+   "title": "Зарафшан 29 апреля 2020 (Узбекистан, Навои).jpg",
+   "artist": "Upirimqulov",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%97%D0%B0%D1%80%D0%B0%D1%84%D1%88%D0%B0%D0%BD_29_%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8F_2020_(%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD,_%D0%9D%D0%B0%D0%B2%D0%BE%D0%B8).jpg"
+  },
+  {
+   "file": "/cities/zarafshon/4.webp",
+   "title": "Тукай, пойма Зерафшана (3).jpg",
+   "artist": "Nikolai Bulykin",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A2%D1%83%D0%BA%D0%B0%D0%B9,_%D0%BF%D0%BE%D0%B9%D0%BC%D0%B0_%D0%97%D0%B5%D1%80%D0%B0%D1%84%D1%88%D0%B0%D0%BD%D0%B0_(3).jpg"
+  },
+  {
+   "file": "/cities/zarafshon/5.webp",
+   "title": "Parkplatz am Rand der Serafschan-Schlucht am Westende Aini.jpg",
+   "artist": "Bohndorf Film-Team",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Parkplatz_am_Rand_der_Serafschan-Schlucht_am_Westende_Aini.jpg"
+  }
+ ],
+ "issykkul": [
+  {
+   "file": "/cities/issykkul/1.webp",
+   "title": "Issyk-Kul lake (15125671732).jpg",
+   "artist": "Mzximvs VdB from Brussels, belgium",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Issyk-Kul_lake_(15125671732).jpg"
+  },
+  {
+   "file": "/cities/issykkul/2.webp",
+   "title": "Lake Issyk-Kul, Kyrgyzstan.jpg",
+   "artist": "Bgag",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lake_Issyk-Kul,_Kyrgyzstan.jpg"
+  },
+  {
+   "file": "/cities/issykkul/3.webp",
+   "title": "Issyk Kul.jpg",
+   "artist": "Wikimedia Commons",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Issyk_Kul.jpg"
+  },
+  {
+   "file": "/cities/issykkul/4.webp",
+   "title": "Kichi Ak Suu Sanctuary, Issyk Kul Region, Kyrgyzstan 03.jpg",
+   "artist": "Vilya Shoni",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kichi_Ak_Suu_Sanctuary,_Issyk_Kul_Region,_Kyrgyzstan_03.jpg"
+  },
+  {
+   "file": "/cities/issykkul/5.webp",
+   "title": "Karakol canyon.jpg",
+   "artist": "Ekrem Canli",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Karakol_canyon.jpg"
+  }
+ ],
+ "balkhash": [
+  {
+   "file": "/cities/balkhash/1.webp",
+   "title": "Караойский заказник, берег Балхаша сверху (4).jpg",
+   "artist": "Nikolai Bulykin",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D1%80%D0%B0%D0%BE%D0%B9%D1%81%D0%BA%D0%B8%D0%B9_%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%BD%D0%B8%D0%BA,_%D0%B1%D0%B5%D1%80%D0%B5%D0%B3_%D0%91%D0%B0%D0%BB%D1%85%D0%B0%D1%88%D0%B0_%D1%81%D0%B2%D0%B5%D1%80%D1%85%D1%83_(4).jpg"
+  },
+  {
+   "file": "/cities/balkhash/2.webp",
+   "title": "Lake Balkhash (MODIS 2022-06-13).jpg",
+   "artist": "MODIS Land Rapid Response Team, NASA GSFC",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Lake_Balkhash_(MODIS_2022-06-13).jpg"
+  },
+  {
+   "file": "/cities/balkhash/3.webp",
+   "title": "Lake Balkhash (MODIS 2026-03-25).jpg",
+   "artist": "MODIS Land Rapid Response Team, NASA GSFC",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Lake_Balkhash_(MODIS_2026-03-25).jpg"
+  },
+  {
+   "file": "/cities/balkhash/4.webp",
+   "title": "Ili river at Kuygan.jpg",
+   "artist": "МаратД",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Ili_river_at_Kuygan.jpg"
+  },
+  {
+   "file": "/cities/balkhash/5.webp",
+   "title": "STS039-085-00E Lake Balkhash, Kazakhstan April 1991.jpg",
+   "artist": "NASA",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:STS039-085-00E_Lake_Balkhash,_Kazakhstan_April_1991.jpg"
+  }
+ ]
+}

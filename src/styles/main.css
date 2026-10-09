@@ -1,0 +1,408 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────────────────── Brend tokenlari ───────────────────────── */
+:root {
+  --bg: 195 30% 97%;
+  --bg-deep: 196 26% 93%;
+  --surface: 0 0% 100%;
+  --surface-2: 195 25% 95%;
+  --fg: 222 28% 12%;
+  --fg-soft: 220 16% 27%;
+  --muted: 218 11% 40%;
+  --line: 205 20% 85%;
+  --primary: 174 65% 30%;
+  --primary-strong: 174 70% 25%;
+  --primary-fg: 0 0% 100%;
+  --accent: 208 82% 42%;
+  --sand: 33 72% 42%;
+  --success: 150 62% 32%;
+  --warning: 30 92% 44%;
+  --danger: 0 70% 48%;
+  --glass: 0 0% 100% / 0.72;
+  --glass-line: 222 40% 20% / 0.09;
+  --glow: 174 70% 40% / 0.18;
+  --grad-from: 174 72% 27%;
+  --grad-to: 210 82% 40%;
+  --shadow-lg: 0 30px 60px -30px hsl(200 40% 30% / 0.35);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* logo: «G» va «Geo» rangi */
+  --logo-ink: 216 64% 22%;
+}
+
+.dark {
+  --logo-ink: 212 78% 72%;
+  --bg: 222 20% 11%;
+  --bg-deep: 224 24% 8%;
+  --surface: 222 19% 14%;
+  --surface-2: 222 17% 18%;
+  --fg: 210 30% 96%;
+  --fg-soft: 214 22% 82%;
+  --muted: 218 12% 64%;
+  --line: 220 15% 23%;
+  --primary: 174 58% 44%;
+  --primary-strong: 172 64% 54%;
+  --primary-fg: 222 30% 8%;
+  --accent: 204 86% 64%;
+  --sand: 37 66% 68%;
+  --success: 150 58% 48%;
+  --warning: 34 94% 58%;
+  --danger: 0 76% 64%;
+  --glass: 222 24% 16% / 0.58;
+  --glass-line: 0 0% 100% / 0.08;
+  --glow: 174 70% 50% / 0.22;
+  --grad-from: 170 70% 56%;
+  --grad-to: 202 92% 68%;
+  --shadow-lg: 0 40px 80px -40px hsl(222 60% 2% / 0.8);
+}
+
+@theme inline {
+  --color-bg: hsl(var(--bg));
+  --color-bg-deep: hsl(var(--bg-deep));
+  --color-surface: hsl(var(--surface));
+  --color-surface-2: hsl(var(--surface-2));
+  --color-fg: hsl(var(--fg));
+  --color-fg-soft: hsl(var(--fg-soft));
+  --color-muted: hsl(var(--muted));
+  --color-line: hsl(var(--line));
+  --color-primary: hsl(var(--primary));
+  --color-primary-strong: hsl(var(--primary-strong));
+  --color-primary-fg: hsl(var(--primary-fg));
+  --color-accent: hsl(var(--accent));
+  --color-sand: hsl(var(--sand));
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-danger: hsl(var(--danger));
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ───────────────────────── Asos ───────────────────────── */
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 84px;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background: hsl(var(--bg));
+    color: hsl(var(--fg));
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.35);
+    color: hsl(var(--fg));
+  }
+  button {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary-strong));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.3s ease,
+    fill 0.3s ease !important;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped,
+html.scroll-locked {
+  overflow: hidden;
+}
+
+/* ───────────────────────── Komponent sinflari ───────────────────────── */
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 32px;
+    }
+  }
+
+  .section {
+    position: relative;
+    padding-block: clamp(80px, 11vw, 150px);
+  }
+
+  .display {
+    font-size: clamp(2.55rem, 6vw, 5.25rem);
+    font-weight: 800;
+    letter-spacing: -0.038em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .h2 {
+    font-size: clamp(2rem, 4.1vw, 3.3rem);
+    font-weight: 760;
+    letter-spacing: -0.032em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+  .h3 {
+    font-size: 1.2rem;
+    font-weight: 660;
+    letter-spacing: -0.012em;
+    line-height: 1.3;
+  }
+  .lead {
+    font-size: clamp(1.06rem, 1.35vw, 1.22rem);
+    line-height: 1.6;
+    color: hsl(var(--fg-soft));
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, hsl(var(--grad-from)) 10%, hsl(var(--grad-to)) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .glass {
+    background: hsl(var(--glass));
+    border: 1px solid hsl(var(--glass-line));
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  .hairline {
+    border-color: hsl(var(--line));
+  }
+
+  /* Tugmalar */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.6rem 1.15rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 620;
+    line-height: 1.1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease,
+      box-shadow 0.3s ease;
+  }
+  .btn-lg {
+    min-height: 54px;
+    padding: 0.85rem 1.6rem;
+    font-size: 1.02rem;
+  }
+  .btn-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-fg));
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+  }
+  .btn-primary:hover {
+    background: hsl(var(--primary-strong));
+    box-shadow: 0 10px 34px -10px hsl(var(--primary) / 0.75);
+  }
+  .btn-outline {
+    border: 1px solid hsl(var(--fg) / 0.22);
+    color: hsl(var(--fg));
+    background: hsl(var(--fg) / 0.02);
+  }
+  .btn-outline:hover {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.08);
+  }
+  .btn-ghost {
+    color: hsl(var(--fg-soft));
+  }
+  .btn-ghost:hover {
+    color: hsl(var(--fg));
+    background: hsl(var(--fg) / 0.06);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 560;
+    line-height: 1.2;
+  }
+
+  .depth-1 {
+    transform: translateZ(26px);
+  }
+  .depth-2 {
+    transform: translateZ(48px);
+  }
+  .depth-3 {
+    transform: translateZ(70px);
+  }
+
+  /* Skroll bilan paydo bo'lish */
+  .reveal {
+    opacity: 0;
+    translate: 0 18px;
+    transition:
+      opacity 0.8s var(--ease-out-expo),
+      translate 0.9s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-revealed {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* 3D skeleton loader */
+  .skeleton-orbit {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .skeleton-orbit::before {
+    content: '';
+    width: min(56%, 360px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed hsl(var(--primary) / 0.45);
+    animation: spin 14s linear infinite;
+  }
+  .skeleton-orbit::after {
+    content: '';
+    position: absolute;
+    width: min(40%, 260px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, hsl(var(--primary) / 0.28), transparent 65%);
+    animation: pulse-soft 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.45;
+    scale: 0.96;
+  }
+  50% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Sarlavha + yonida 3D globus */
+.showcase-head {
+  display: grid;
+  gap: 0.5rem;
+  align-items: center;
+}
+.showcase-head__globe {
+  height: clamp(260px, 70vw, 340px);
+  margin-inline: -20px;
+}
+@media (min-width: 1024px) {
+  .showcase-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 2rem;
+  }
+  .showcase-head__globe {
+    height: 400px;
+    margin: -60px -24px -80px 0;
+  }
+}
+
+
+/* «Uchib kirish» o'tish qatlami */
+.fly-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  color: hsl(var(--primary-fg));
+  background:
+    radial-gradient(120% 90% at 50% 40%, hsl(var(--primary-strong)) 0%, hsl(var(--primary)) 45%, hsl(var(--bg-deep)) 100%);
+}
+.dark .fly-overlay {
+  color: hsl(var(--fg));
+}
+.fly-overlay__inner {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    translate: none;
+  }
+}

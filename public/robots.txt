@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geolearn.uz/sitemap.xml
