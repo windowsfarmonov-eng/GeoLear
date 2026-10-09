@@ -71,7 +71,7 @@ onBeforeUnmount(() => ctx?.revert())
 }
 .tablet__body {
   position: relative;
-  width: min(100%, 640px);
+  width: min(100%, 40rem);
   margin-inline: auto;
   aspect-ratio: 4 / 3;
   transform-style: preserve-3d;

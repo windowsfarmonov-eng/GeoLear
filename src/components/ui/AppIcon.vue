@@ -9,12 +9,15 @@ const props = defineProps({
 })
 
 const markup = computed(() => iconPaths[props.name] ?? '')
+// raqamli o'lcham rem'ga aylantiriladi — katta ekranlarda ikonka ham matn bilan birga kattalashadi
+const box = computed(() => (typeof props.size === 'number' ? `${props.size / 16}rem` : props.size))
 </script>
 
 <template>
   <svg
     :width="size"
     :height="size"
+    :style="{ width: box, height: box }"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

@@ -66,7 +66,7 @@ import ShowcaseGlobe from '../three/ShowcaseGlobe.vue'
   }
   .final-cta__planet {
     inset: auto 0 0 0;
-    height: 300px;
+    height: 18.75rem;
   }
 }
 .final-cta__content {

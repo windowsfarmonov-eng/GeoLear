@@ -196,7 +196,14 @@
         "title": "Statistika",
         "text": "Dashboard, grafiklar va hozir onlayn bo'lgan o'quvchilar — real vaqtda."
       }
-    }
+    },
+    "perksTitle": "Har qanday sinfda",
+    "perks": [
+      "Brauzerda ochiladi — hech narsa o'rnatish shart emas",
+      "Telefon, planshet, kompyuter va elektron doskada ishlaydi",
+      "O'zbek va rus tillarida",
+      "Natijalar real vaqtda yangilanadi"
+    ]
   },
   "teachers": {
     "title": "O'qituvchilar uchun",
@@ -350,7 +357,14 @@
       "Platforma ma'lumotlariga tayanadi"
     ],
     "safetyTitle": "O'qituvchi nazoratida",
-    "safetyText": "O'qituvchi «AI Logs» bo'limida o'quvchilarning AI bilan yozishmalarini ko'radi va nojo'ya so'zlar bo'yicha ogohlantirish oladi."
+    "safetyText": "O'qituvchi «AI Logs» bo'limida o'quvchilarning AI bilan yozishmalarini ko'radi va nojo'ya so'zlar bo'yicha ogohlantirish oladi.",
+    "examplesTitle": "Masalan, so'rang:",
+    "examples": [
+      "Nega Orol dengizi qurib bormoqda?",
+      "Tyan-Shan tog'lari qanday paydo bo'lgan?",
+      "Toshkentda iqlim qanday?",
+      "Amudaryo qayerdan boshlanadi?"
+    ]
   },
   "how": {
     "title": "Qanday ishlaydi",

@@ -123,7 +123,18 @@ onBeforeUnmount(stop)
 <template>
   <section id="ai" class="section ai" aria-labelledby="ai-title">
     <div class="container-x">
-      <SectionHeading id="ai-title" :title="t('ai.title')" :lead="t('ai.subtitle')" />
+      <div class="head-split">
+        <SectionHeading id="ai-title" :title="t('ai.title')" :lead="t('ai.subtitle')" />
+        <aside v-reveal="120" class="head-aside glass">
+          <p class="head-aside__title">{{ t('ai.examplesTitle') }}</p>
+          <ul class="ask-list">
+            <li v-for="q in tm('ai.examples')" :key="q" class="ask-list__item">
+              <AppIcon name="sparkles" :size="16" />
+              {{ q }}
+            </li>
+          </ul>
+        </aside>
+      </div>
 
       <div class="ai__grid mt-12 lg:mt-16">
         <div class="ai__orb-col">
@@ -204,7 +215,7 @@ onBeforeUnmount(stop)
 }
 .ai-orb {
   position: relative;
-  width: min(100%, 460px);
+  width: min(100%, 28.75rem);
   aspect-ratio: 1;
   margin-inline: auto;
 }
@@ -317,7 +328,7 @@ onBeforeUnmount(stop)
   flex-direction: column;
   justify-content: flex-end;
   gap: 0.6rem;
-  height: 360px;
+  height: 22.5rem;
   padding: 1.2rem;
   overflow: hidden;
 }
@@ -449,7 +460,7 @@ onBeforeUnmount(stop)
 }
 @media (max-width: 639px) {
   .chat__body {
-    height: 340px;
+    height: 21.25rem;
   }
 }
 </style>

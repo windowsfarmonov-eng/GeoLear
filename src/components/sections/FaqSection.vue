@@ -23,6 +23,7 @@ function toggle(id) {
         <SectionHeading id="faq-title" :title="t('faq.title')" :lead="t('faq.subtitle')" />
         <div class="faq__contacts">
           <a :href="contacts.telegram.href" class="faq__contact"> <AppIcon name="send" :size="18" /> {{ contacts.telegram.label }} </a>
+          <a :href="contacts.phone.href" class="faq__contact"> <AppIcon name="phone" :size="18" /> {{ contacts.phone.label }} </a>
           <a :href="contacts.email.href" class="faq__contact"> <AppIcon name="mail" :size="18" /> {{ contacts.email.label }} </a>
         </div>
         <ShowcaseGlobe variant="orbits" class="faq__globe" />
@@ -89,12 +90,12 @@ function toggle(id) {
   transition: border-color 0.2s ease;
 }
 .faq__globe {
-  height: 300px;
+  height: 18.75rem;
   margin-top: 1rem;
 }
 @media (min-width: 1024px) {
   .faq__globe {
-    height: 380px;
+    height: 23.75rem;
     margin: 1.5rem -1rem 0;
   }
 }

@@ -1,8 +1,8 @@
-// Aloqa ma'lumotlari — hozircha placeholder. O'zingiznikiga almashtiring.
+// Aloqa ma'lumotlari
 export const contacts = {
-  telegram: { label: '@geolearn_uz', href: 'https://t.me/geolearn_uz' },
+  telegram: { label: '@Azamjonov2010', href: 'https://t.me/Azamjonov2010' },
   email: { label: 'info@geolearn.uz', href: 'mailto:info@geolearn.uz' },
-  phone: { label: '+998 90 000 00 00', href: 'tel:+998900000000' },
+  phone: { label: '+998 91 004 25 65', href: 'tel:+998910042565' },
 }
 
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://geolearn.uz').replace(/\/+$/, '')

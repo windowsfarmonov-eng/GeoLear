@@ -6,7 +6,7 @@ import SectionHeading from '../ui/SectionHeading.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import { device } from '../../composables/useDevice'
 import { useScene } from '../../composables/useScene'
-import { t } from '../../i18n'
+import { t, tm } from '../../i18n'
 
 const features = [
   { key: 'lessons', kind: 'book', icon: 'book' },
@@ -17,6 +17,7 @@ const features = [
   { key: 'homework', kind: 'clipboard', icon: 'clipboard' },
   { key: 'stats', kind: 'chart', icon: 'chart' },
 ]
+const perkIcons = ['globe', 'dashboard', 'users', 'activity']
 
 const grid = ref(null)
 const canvas = ref(null)
@@ -48,7 +49,18 @@ const live = computed(() => status.value === 'ready')
 <template>
   <section id="imkoniyatlar" class="section" aria-labelledby="features-title">
     <div class="container-x">
-      <SectionHeading id="features-title" :title="t('features.title')" :lead="t('features.subtitle')" />
+      <div class="head-split">
+        <SectionHeading id="features-title" :title="t('features.title')" :lead="t('features.subtitle')" />
+        <aside v-reveal="120" class="head-aside glass">
+          <p class="head-aside__title">{{ t('features.perksTitle') }}</p>
+          <ul class="perks">
+            <li v-for="(perk, i) in tm('features.perks')" :key="perk" class="perks__item">
+              <span class="perks__icon" aria-hidden="true"><AppIcon :name="perkIcons[i]" :size="18" /></span>
+              {{ perk }}
+            </li>
+          </ul>
+        </aside>
+      </div>
 
       <div ref="grid" class="bento mt-12 lg:mt-16" :class="{ 'is-live': live }">
         <article
@@ -119,8 +131,8 @@ const live = computed(() => status.value === 'ready')
 }
 .bento__slot {
   position: relative;
-  width: 112px;
-  height: 112px;
+  width: 7rem;
+  height: 7rem;
   flex: none;
 }
 .bento__fallback {
@@ -196,8 +208,8 @@ const live = computed(() => status.value === 'ready')
     padding: 2rem;
   }
   .bento__card--lessons .bento__slot {
-    width: min(100%, 300px);
-    height: 260px;
+    width: min(100%, 18.75rem);
+    height: 16.25rem;
     align-self: center;
     margin-block: auto;
   }

@@ -80,7 +80,15 @@ const studentIcons = ['book', 'check', 'chart']
   .curriculum__grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     gap: 2rem;
-    align-items: start;
+    align-items: stretch;
+  }
+  .unit-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .unit-card__more {
+    margin-top: auto;
+    padding-top: 1.2rem;
   }
 }
 .unit-card {

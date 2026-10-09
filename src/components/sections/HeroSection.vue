@@ -90,7 +90,7 @@ const textColumn = ref(null)
 }
 @media (min-width: 1024px) {
   .hero {
-    min-height: max(100svh, 720px);
+    min-height: max(100svh, 45rem);
     display: flex;
     align-items: center;
     padding-top: 110px;
@@ -114,7 +114,7 @@ const textColumn = ref(null)
 }
 @media (min-width: 1280px) {
   .hero__grid {
-    grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 35rem) minmax(0, 1fr);
   }
 }
 

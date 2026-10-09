@@ -140,6 +140,33 @@ onBeforeUnmount(() => {
   perspective: 2600px;
   perspective-origin: 50% 30%;
 }
+/* Katta ekranlarda (TV, elektron doska) maket ham sahifa shrifti bilan birga kattalashadi */
+@media (min-width: 1700px) {
+  .monitor {
+    width: 1320px;
+    zoom: 1.125;
+  }
+}
+@media (min-width: 2100px) {
+  .monitor {
+    zoom: 1.3125;
+  }
+}
+@media (min-width: 2500px) {
+  .monitor {
+    zoom: 1.5625;
+  }
+}
+@media (min-width: 3200px) {
+  .monitor {
+    zoom: 2;
+  }
+}
+@media (min-width: 4200px) {
+  .monitor {
+    zoom: 2.5;
+  }
+}
 .monitor__scene {
   position: relative;
   width: 100%;
