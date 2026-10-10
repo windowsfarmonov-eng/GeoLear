@@ -48,16 +48,32 @@ const Z = new Vector3(0, 0, 1)
 const CITIES = diveCities
 const city = (key) => CITIES.find((c) => c.key === key)
 
+// Uchish yo'nalishlari: shahar kaliti yoki [kenglik, uzunlik] nuqta (xarita chetidagi yo'nalishlar —
+// samolyot qo'shni mamlakatlar tomon uchib ketadi yoki o'sha yoqdan keladi).
+// Tartib muhim: kuchsiz qurilmada faqat boshidagilari chiziladi — ular xaritaning turli burchaklarini qamraydi.
 const FLIGHTS = [
   ['tashkent', 'samarkand'],
-  ['samarkand', 'bukhara'],
-  ['tashkent', 'almaty'],
+  ['nukus', 'tashkent'], // Qizilqum ustidan
+  ['ashgabat', [40.4, 50.6]], // Kaspiy orqali g'arbga
+  ['almaty', [47.4, 67.0]], // Qozog'iston dashtlari tomon
   ['dushanbe', 'tashkent'],
+  [[43.65, 51.2], 'nukus'], // Kaspiy bo'yidan Ustyurt ustidan
+  ['tashkent', 'almaty'],
+  ['samarkand', 'bukhara'],
   ['bukhara', 'khiva'],
   ['ashgabat', 'bukhara'],
   ['bishkek', 'andijan'],
   ['termez', 'qarshi'],
+  ['tashkent', [47.6, 56.5]], // shimoli-g'arbga (Orol ustidan)
+  ['bishkek', [43.9, 79.6]], // sharqqa, Xitoy tomon
+  ['termez', [35.3, 69.3]], // janubga, Hindukush ustidan
+  [[36.2, 59.7], 'dushanbe'], // Eron tomondan Qoraqum ustidan
+  ['almaty', 'nukus'], // butun o'lka bo'ylab sharqdan g'arbga
+  ['khiva', 'ashgabat'],
+  ['andijan', [46.6, 74.9]], // Balxash tomon
+  [[35.4, 62.3], 'samarkand'], // janubi-g'arbdan
 ]
+const flightPoint = (p) => (typeof p === 'string' ? city(p) : { lat: p[0], lon: p[1] })
 
 const PEAKS = [
   { lat: 38.94, lon: 72.02, color: '#ffcf6b' }, // Ismoil Somoniy — O'rta Osiyodagi eng baland
@@ -317,11 +333,13 @@ export function createDiveExtras({ scene, earth, terrain, quality, pixelRatio })
     g.scale.setScalar(0.75)
     return { group: g, light }
   }
-  const flightCount = full ? FLIGHTS.length : 4
+  const flightCount = full ? FLIGHTS.length : 7
   const tmpM = new Matrix4()
   const planes = FLIGHTS.slice(0, flightCount).map(([from, to], i) => {
-    const a = city(from)
-    const b = city(to)
+    const a = flightPoint(from)
+    const b = flightPoint(to)
+    // masofa (gradusda, taxminan) — uzoq yo'nalishda samolyot balandroq va sekinroq (ulushda) uchadi
+    const reach = Math.hypot(b.lat - a.lat, (b.lon - a.lon) * 0.75)
     const samples = 80
     const pts = []
     const normals = []
@@ -329,7 +347,7 @@ export function createDiveExtras({ scene, earth, terrain, quality, pixelRatio })
       const t = k / samples
       const lat = a.lat + (b.lat - a.lat) * t
       const lon = a.lon + (b.lon - a.lon) * t
-      const cruise = 0.012 + Math.sin(Math.PI * t) * 0.016
+      const cruise = 0.012 + Math.sin(Math.PI * t) * (0.016 + Math.min(0.012, reach * 0.0009))
       // tog'lar ustidan o'tganda balandroq ucha boshlaydi
       pts.push(ground(lat, lon, cruise))
       normals.push(normalAt(lat, lon))
@@ -348,7 +366,8 @@ export function createDiveExtras({ scene, earth, terrain, quality, pixelRatio })
     flights.add(trail)
     const plane = buildPlane()
     flights.add(plane.group)
-    return { curve, normals, trailMat, plane, speed: 0.07 + (i % 3) * 0.015, offset: i * 0.29 }
+    const pace = Math.sqrt(2.8 / Math.max(2.8, reach))
+    return { curve, normals, trailMat, plane, speed: (0.07 + (i % 3) * 0.015) * pace, offset: (i * 0.37) % 1 }
   })
 
   // ───────────── 5. Daryolar bo'ylab oqim zarrachalari ─────────────
