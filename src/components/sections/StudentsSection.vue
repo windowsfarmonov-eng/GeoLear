@@ -2,12 +2,27 @@
 import SectionHeading from '../ui/SectionHeading.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import TabletMockup from '../devices/TabletMockup.vue'
+import StudentCrm from '../crm/StudentCrm.vue'
+import { computed, ref } from 'vue'
+import { studentData, studentIcons as icons, studentViews } from '../../content/studentCrm'
 import { links } from '../../config/links'
 import { flyToPortal } from '../../composables/useFlyTransition'
-import { t, tm } from '../../i18n'
+import { scrollToElement } from '../../composables/scrollLite'
+import { locale, t, tm } from '../../i18n'
 
-// tartib i18n'dagi «students.items» bilan bir xil
-const icons = ['dashboard', 'chart', 'book', 'clipboard', 'gamepad', 'trophy', 'video', 'bot']
+// planshetdagi o'quvchi portalida ochiq bo'lim; ro'yxatdan ham tanlanadi (tartib «students.items» bilan bir xil)
+const portalView = ref('dashboard')
+const device = ref(null)
+const hint = computed(() => (studentData[locale.value] ?? studentData.uz).hint)
+
+function showInTablet(i) {
+  portalView.value = studentViews[i]
+  // tor ekranda planshet ro'yxatdan pastda — bosilganda unga olib boramiz
+  const el = device.value
+  if (!el) return
+  const rect = el.getBoundingClientRect()
+  if (rect.bottom < 120 || rect.top > window.innerHeight * 0.6) scrollToElement(el, -90)
+}
 const statusIcons = ['file', 'upload', 'check']
 </script>
 
@@ -18,12 +33,20 @@ const statusIcons = ['file', 'upload', 'check']
         <SectionHeading id="students-title" :title="t('students.title')" :lead="t('students.subtitle')" />
 
         <ul class="student-list">
-          <li v-for="(item, i) in tm('students.items')" :key="item.title" v-reveal="(i % 2) * 60" class="student-list__item">
-            <AppIcon :name="icons[i] ?? 'check'" :size="20" class="student-list__icon" />
-            <div>
-              <h3 class="student-list__title">{{ item.title }}</h3>
-              <p class="student-list__text">{{ item.text }}</p>
-            </div>
+          <li v-for="(item, i) in tm('students.items')" :key="item.title" v-reveal="(i % 2) * 60">
+            <button
+              type="button"
+              class="student-list__item"
+              :class="{ 'is-active': portalView === studentViews[i] }"
+              :aria-pressed="portalView === studentViews[i]"
+              @click="showInTablet(i)"
+            >
+              <span class="student-list__icon" aria-hidden="true"><AppIcon :name="icons[i] ?? 'check'" :size="20" /></span>
+              <span>
+                <span class="student-list__title">{{ item.title }}</span>
+                <span class="student-list__text">{{ item.text }}</span>
+              </span>
+            </button>
           </li>
         </ul>
 
@@ -65,8 +88,14 @@ const statusIcons = ['file', 'upload', 'check']
         <p class="students__note">{{ t('students.note') }}</p>
       </div>
 
-      <div class="students__device">
-        <TabletMockup src="/screens/student.png" :alt="t('students.screenAlt')" />
+      <div ref="device" class="students__device">
+        <p class="students__hint">
+          <span class="students__hint-dot" aria-hidden="true" />
+          {{ hint }}
+        </p>
+        <TabletMockup>
+          <StudentCrm v-model:view="portalView" />
+        </TabletMockup>
       </div>
     </div>
   </section>
@@ -88,10 +117,26 @@ const statusIcons = ['file', 'upload', 'check']
     top: 120px;
   }
 }
+.students__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: hsl(var(--primary-strong));
+}
+.students__hint-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
 .student-list {
   display: grid;
-  gap: 1.3rem 1.8rem;
-  margin-top: 2.2rem;
+  gap: 0.35rem 1rem;
+  margin-top: 1.8rem;
 }
 @media (min-width: 640px) {
   .student-list {
@@ -101,17 +146,44 @@ const statusIcons = ['file', 'upload', 'check']
 .student-list__item {
   display: flex;
   gap: 0.75rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.7rem 0.75rem;
+  margin-inline: -0.75rem;
+  border-radius: 14px;
+  text-align: left;
+  transition: background-color 0.25s ease;
+}
+.student-list__item:hover {
+  background: hsl(var(--primary) / 0.06);
+}
+.student-list__item.is-active {
+  background: hsl(var(--primary) / 0.1);
 }
 .student-list__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
   flex: none;
-  margin-top: 0.15rem;
+  border-radius: 11px;
   color: hsl(var(--primary-strong));
+  background: hsl(var(--primary) / 0.12);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+.student-list__item.is-active .student-list__icon {
+  color: hsl(var(--primary-fg));
+  background: hsl(var(--primary));
 }
 .student-list__title {
+  display: block;
   font-size: 1rem;
   font-weight: 660;
 }
 .student-list__text {
+  display: block;
   margin-top: 0.2rem;
   font-size: 0.93rem;
   line-height: 1.5;

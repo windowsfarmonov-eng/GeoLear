@@ -1,13 +1,13 @@
 <script setup>
 // CSS 3D planshet: skroll bilan perspektivada buriladi.
-// Skrinshot: /public/screens/student.png (o'zingiznikiga almashtiring).
+// Ekranida slot (jonli namoyish) yoki skrinshot (src) ko'rsatiladi.
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { gsap } from '../../composables/useSmoothScroll'
 import { motionOK } from '../../composables/useDevice'
 
 defineProps({
-  src: { type: String, required: true },
-  alt: { type: String, required: true },
+  src: { type: String, default: '' },
+  alt: { type: String, default: '' },
 })
 
 const root = ref(null)
@@ -41,8 +41,10 @@ onBeforeUnmount(() => ctx?.revert())
       <span class="tablet__edge" aria-hidden="true" />
       <div class="tablet__face">
         <div class="tablet__screen">
-          <img v-if="!failed" :src="src" :alt="alt" loading="lazy" decoding="async" @error="failed = true" />
-          <div v-else class="screen-placeholder">{{ alt }}</div>
+          <slot>
+            <img v-if="!failed" :src="src" :alt="alt" loading="lazy" decoding="async" @error="failed = true" />
+            <div v-else class="screen-placeholder">{{ alt }}</div>
+          </slot>
           <span class="laptop__glare" aria-hidden="true" />
         </div>
         <span class="tablet__camera" aria-hidden="true" />
