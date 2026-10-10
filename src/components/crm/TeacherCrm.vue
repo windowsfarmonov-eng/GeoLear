@@ -7,16 +7,22 @@ import { computed, onBeforeUnmount, onMounted, onUpdated, ref, watch } from 'vue
 import AppIcon from '../ui/AppIcon.vue'
 import AppLogoMark from '../ui/AppLogoMark.vue'
 import { crmData, crmIcons, crmViews } from '../../content/crm'
-import { locale, tm } from '../../i18n'
+import { locale, tmIn } from '../../i18n'
 
 const view = defineModel('view', { type: String, default: 'dashboard' })
 
 const BASE_W = 1120
 const BASE_H = 728
 
-const d = computed(() => crmData[locale.value] ?? crmData.uz)
+// Maketning o'z tili: «Sozlamalar → Til» faqat shu panel ichidagi matnlarni almashtiradi
+// (sayt tili o'zgarsa, maket ham unga qaytadi)
+const crmLang = ref(locale.value === 'ru' ? 1 : 0)
+const lang = computed(() => (crmLang.value === 1 ? 'ru' : 'uz'))
+watch(locale, (value) => (crmLang.value = value === 'ru' ? 1 : 0))
+
+const d = computed(() => crmData[lang.value] ?? crmData.uz)
 const nav = computed(() => {
-  const items = tm('teachers.items') ?? []
+  const items = tmIn(lang.value, 'teachers.items') ?? []
   return crmViews.map((key, i) => ({ key, icon: crmIcons[i], label: items[i]?.title ?? key }))
 })
 const current = computed(() => nav.value.find((item) => item.key === view.value) ?? nav.value[0])
@@ -96,7 +102,6 @@ const logRows = computed(() => (logFilter.value === 1 ? d.value.logs.rows.filter
 const flaggedCount = computed(() => d.value.logs.rows.filter((r) => r.flag).length)
 
 const crmTheme = ref(0)
-const crmLang = ref(0)
 const toggles = ref([true, true, false])
 
 const videoLink = ref('')
@@ -108,7 +113,7 @@ function onEnterView() {
   }
   if (view.value === 'ai') askAi(chatIndex.value)
 }
-watch(locale, () => {
+watch(lang, () => {
   if (view.value === 'ai') askAi(chatIndex.value)
 })
 
@@ -198,7 +203,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
           <button
             type="button"
             class="crm-iconbtn"
-            :aria-label="locale === 'ru' ? 'Сменить тему' : 'Mavzuni almashtirish'"
+            :aria-label="lang === 'ru' ? 'Сменить тему' : 'Mavzuni almashtirish'"
             @click="crmTheme = crmTheme ? 0 : 1"
           >
             <AppIcon :name="crmTheme ? 'sun' : 'moon'" :size="17" />

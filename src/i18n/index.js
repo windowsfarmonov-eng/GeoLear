@@ -38,6 +38,11 @@ export function tm(key) {
   return lookup(messages[locale.value], key) ?? lookup(messages.uz, key)
 }
 
+/** Sayt tilidan qat'i nazar, aniq bir tildagi tarjima (masalan, CRM maketining o'z til sozlamasi uchun) */
+export function tmIn(lang, key) {
+  return lookup(messages[lang], key) ?? lookup(messages.uz, key)
+}
+
 export function setLocale(next) {
   locale.value = next
 }

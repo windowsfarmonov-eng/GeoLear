@@ -81,9 +81,6 @@ function onPanelScroll() {
   landScroll.value = Math.min(1, el.scrollTop / Math.min(max, 700))
   scrolled.value = el.scrollTop > 40
 }
-function scrollMore() {
-  panel.value?.scrollBy({ top: panel.value.clientHeight * 0.7, behavior: motionOK ? 'smooth' : 'auto' })
-}
 let revealObserver = null
 function setupReveal() {
   revealObserver?.disconnect()
@@ -284,7 +281,8 @@ const radius = computed(() => {
 <template>
   <Teleport to="body">
     <Transition name="city-modal">
-      <div v-if="info" class="city-modal" role="dialog" aria-modal="true" :aria-labelledby="`city-title-${info.key}`" @click.self="close">
+      <!-- data-lenis-prevent: oyna ichida g'ildirak / barmoq bilan oddiy skroll ishlaydi (Lenis to'sib qo'ymaydi) -->
+      <div v-if="info" class="city-modal" data-lenis-prevent role="dialog" aria-modal="true" :aria-labelledby="`city-title-${info.key}`" @click.self="close">
         <div ref="panel" class="city-modal__panel" :class="{ 'is-land': isLand }" @scroll.passive="onPanelScroll">
           <header class="city-modal__head">
             <button type="button" class="city-modal__nav" :aria-label="L.prev" @click="otherCity(-1)">
@@ -386,9 +384,10 @@ const radius = computed(() => {
 
           <!-- Pastga aylantirganda ochiladigan bloklar (relyef obyektlari) -->
           <div v-if="isLand" :key="`more-${info.key}`" class="lf-more">
-            <button type="button" class="lf-cue" :class="{ 'is-hidden': scrolled }" @click="scrollMore">
+            <!-- tugma emas, shunchaki ishora: ma'lumotlar pastga aylantirganda ochiladi -->
+            <p class="lf-cue" :class="{ 'is-hidden': scrolled }" aria-hidden="true">
               {{ L.more }} <AppIcon name="chevronDown" :size="18" :stroke="2.2" />
-            </button>
+            </p>
 
             <section v-if="profile" class="lf-profile lf-reveal">
               <header class="lf-block-head">
@@ -834,6 +833,7 @@ const radius = computed(() => {
   color: hsl(var(--primary-fg));
   background: linear-gradient(90deg, hsl(var(--grad-from)), hsl(var(--grad-to)));
   box-shadow: 0 14px 30px -14px hsl(var(--primary) / 0.8);
+  pointer-events: none;
   transition:
     opacity 0.4s ease,
     translate 0.4s ease;
