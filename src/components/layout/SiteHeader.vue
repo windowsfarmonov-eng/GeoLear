@@ -194,14 +194,14 @@ onBeforeUnmount(() => {
   transition:
     background-color 0.35s ease,
     border-color 0.35s ease,
-    backdrop-filter 0.35s ease;
+    box-shadow 0.35s ease;
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: hsl(var(--bg) / 0.72);
-  border-bottom-color: hsl(var(--line) / 0.7);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  /* to'liq noshaffof: ostidagi kontent (xarita, matnlar) ko'rinib qolmaydi */
+  background: hsl(var(--bg));
+  border-bottom-color: hsl(var(--line));
+  box-shadow: 0 10px 30px -18px hsl(222 60% 3% / 0.7);
 }
 .nav-link {
   position: relative;
@@ -238,10 +238,8 @@ onBeforeUnmount(() => {
 .mobile-menu {
   max-height: calc(100svh - 68px);
   overflow-y: auto;
-  background: hsl(var(--bg) / 0.96);
+  background: hsl(var(--bg));
   border-bottom: 1px solid hsl(var(--line));
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
 }
 .mobile-menu__link {
   display: flex;
