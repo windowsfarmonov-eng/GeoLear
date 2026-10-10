@@ -3,7 +3,7 @@
 // ekrandagi ma'lumotlar almashadi; har bir bo'limning o'z kichik interaktivligi bor.
 // Panel 1120px kenglikda chiziladi va ekranga moslab masshtablanadi.
 // Bo'limlar faqat foydalanuvchi bosganda almashadi (o'zi aylanmaydi).
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onUpdated, ref, watch } from 'vue'
 import AppIcon from '../ui/AppIcon.vue'
 import AppLogoMark from '../ui/AppLogoMark.vue'
 import { crmData, crmIcons, crmViews } from '../../content/crm'
@@ -123,7 +123,17 @@ onMounted(() => {
   })
   resizeObserver.observe(el)
   onEnterView()
+  skipInTabOrder()
 })
+
+// Maket kichraytirib ko'rsatiladi (tugmalari 10–20 px) — klaviatura fokusi uning ichiga kirmaydi.
+// Sichqoncha bilan hammasi bosiladi; bo'limlarni klaviatura / teginish bilan yonidagi katta ro'yxat ochadi.
+function skipInTabOrder() {
+  fit.value?.querySelectorAll('button, input, select, textarea, a[href]').forEach((el) => {
+    if (el.tabIndex !== -1) el.tabIndex = -1
+  })
+}
+onUpdated(skipInTabOrder)
 
 onBeforeUnmount(() => {
   resizeObserver?.disconnect()
@@ -147,11 +157,14 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
           <AppLogoMark :size="30" />
           <span><span class="crm-logo__geo">Geo</span><span class="crm-logo__learn">Learn</span></span>
         </div>
+        <!-- Maket kichraytirilgan: bu tugmalar sichqoncha bilan bosiladi, klaviatura va teginish uchun
+             yonidagi katta ro'yxat (TeachersSection) xuddi shu bo'limlarni ochadi -->
         <nav class="crm-nav">
           <button
             v-for="item in nav"
             :key="item.key"
             type="button"
+            tabindex="-1"
             class="crm-nav__item"
             :class="{ 'is-active': item.key === view }"
             @click="select(item.key)"
@@ -175,7 +188,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
       <section class="crm-main">
         <header class="crm-top">
           <div class="crm-top__title">
-            <h4>{{ current.label }}</h4>
+            <h3>{{ current.label }}</h3>
             <p>{{ view === 'dashboard' ? d.date : d.subtitles[view] }}</p>
           </div>
           <div class="crm-search">
@@ -211,7 +224,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
               <div class="crm-row">
                 <div class="crm-card crm-chart">
                   <div class="crm-card__head">
-                    <h5>{{ d.dashboard.chartTitle }}</h5>
+                    <h4>{{ d.dashboard.chartTitle }}</h4>
                     <div class="crm-legend">
                       <span><i class="is-a" />{{ d.dashboard.legend[0] }}</span>
                       <span><i class="is-b" />{{ d.dashboard.legend[1] }}</span>
@@ -240,7 +253,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                 </div>
                 <div class="crm-card crm-people">
                   <div class="crm-card__head">
-                    <h5>{{ d.dashboard.activeTitle }}</h5>
+                    <h4>{{ d.dashboard.activeTitle }}</h4>
                     <small>{{ d.dashboard.activeTag }}</small>
                   </div>
                   <ul>
@@ -257,7 +270,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
               </div>
               <div class="crm-card crm-hw">
                 <div class="crm-card__head">
-                  <h5>{{ d.dashboard.hwTitle }}</h5>
+                  <h4>{{ d.dashboard.hwTitle }}</h4>
                   <small>{{ d.dashboard.hwTag }}</small>
                 </div>
                 <div class="crm-hw__list">
@@ -335,7 +348,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
               </div>
               <div class="crm-card crm-roster">
                 <div class="crm-card__head">
-                  <h5>{{ d.classes.listTitle }} · {{ d.classes.items[classIndex].name }}</h5>
+                  <h4>{{ d.classes.listTitle }} · {{ d.classes.items[classIndex].name }}</h4>
                 </div>
                 <TransitionGroup tag="ul" name="crm-list">
                   <li v-for="(p, k) in d.classes.items[classIndex].students" :key="`${classIndex}-${p.name}`">
@@ -358,7 +371,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
             <div v-else-if="view === 'lessons'" key="lessons" class="crm-view crm-split crm-split--lessons">
               <div class="crm-card crm-topics">
                 <div class="crm-card__head">
-                  <h5>{{ d.lessons.unit }}</h5>
+                  <h4>{{ d.lessons.unit }}</h4>
                 </div>
                 <button
                   v-for="(tp, i) in d.lessons.topics"
@@ -379,7 +392,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                 <div :key="topicIndex" class="crm-card crm-topic-detail">
                   <div class="crm-topic-detail__head">
                     <em class="crm-badge is-info"><AppIcon name="file" :size="12" /> {{ d.lessons.fromPdf }}</em>
-                    <h5>{{ topic.title }}</h5>
+                    <h4>{{ topic.title }}</h4>
                   </div>
                   <div class="crm-mini-stats">
                     <div>
@@ -465,7 +478,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                   </div>
                   <div class="crm-card crm-game__players">
                     <div class="crm-card__head">
-                      <h5>{{ d.games.joining }}</h5>
+                      <h4>{{ d.games.joining }}</h4>
                       <em class="crm-badge is-ok"><i class="crm-dot" />{{ joined }}/{{ d.games.players.length }}</em>
                     </div>
                     <TransitionGroup tag="div" name="crm-pop" class="crm-game__grid">
@@ -477,7 +490,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                 </div>
                 <div v-else key="done" class="crm-card crm-podium">
                   <div class="crm-card__head">
-                    <h5><AppIcon name="trophy" :size="18" /> {{ d.games.finished }}</h5>
+                    <h4><AppIcon name="trophy" :size="18" /> {{ d.games.finished }}</h4>
                     <button type="button" class="crm-btn" @click="newGame"><AppIcon name="gamepad" :size="15" />{{ d.games.again }}</button>
                   </div>
                   <div class="crm-podium__stage">
@@ -585,7 +598,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
               <div class="crm-ai-side">
                 <div class="crm-card">
                   <div class="crm-card__head">
-                    <h5>{{ d.ai.suggestions }}</h5>
+                    <h4>{{ d.ai.suggestions }}</h4>
                   </div>
                   <button
                     v-for="(c, i) in d.ai.chats"
@@ -640,7 +653,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
             <!-- 11. Sozlamalar -->
             <div v-else key="settings" class="crm-view crm-settings">
               <div class="crm-card crm-set">
-                <h5>{{ d.settings.theme }}</h5>
+                <h4>{{ d.settings.theme }}</h4>
                 <div class="crm-themes">
                   <button
                     v-for="(th, i) in d.settings.themes"
@@ -654,7 +667,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                     <span><AppIcon :name="i ? 'sun' : 'moon'" :size="14" /> {{ th }}</span>
                   </button>
                 </div>
-                <h5>{{ d.settings.language }}</h5>
+                <h4>{{ d.settings.language }}</h4>
                 <div class="crm-seg crm-seg--lg">
                   <button v-for="(l, i) in d.settings.languages" :key="l" type="button" :class="{ 'is-on': crmLang === i }" @click="crmLang = i">
                     {{ l }}
@@ -662,7 +675,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                 </div>
               </div>
               <div class="crm-card crm-set">
-                <h5>{{ d.settings.logo }}</h5>
+                <h4>{{ d.settings.logo }}</h4>
                 <div class="crm-logo-up">
                   <span class="crm-school__logo crm-school__logo--lg">12</span>
                   <div>
@@ -671,7 +684,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
                   </div>
                   <button type="button" class="crm-btn"><AppIcon name="upload" :size="15" />{{ d.settings.change }}</button>
                 </div>
-                <h5>{{ d.settings.notifications }}</h5>
+                <h4>{{ d.settings.notifications }}</h4>
                 <label v-for="(tg, i) in d.settings.toggles" :key="tg" class="crm-toggle">
                   <span>{{ tg }}</span>
                   <input v-model="toggles[i]" type="checkbox" />
@@ -750,7 +763,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   text-align: inherit;
   cursor: pointer;
 }
-:where(.crm h4, .crm h5, .crm p) {
+:where(.crm h3, .crm h4, .crm p) {
   margin: 0;
 }
 :where(.crm ul) {
@@ -913,7 +926,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   flex: 1;
   min-width: 0;
 }
-.crm-top__title h4 {
+.crm-top__title h3 {
   font-size: 19px;
   font-weight: 750;
   letter-spacing: -0.02em;
@@ -1038,7 +1051,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   gap: 10px;
   margin-bottom: 12px;
 }
-.crm-card__head h5 {
+.crm-card__head h4 {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1597,7 +1610,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   gap: 8px;
   justify-items: start;
 }
-.crm-topic-detail__head h5 {
+.crm-topic-detail__head h4 {
   font-size: 18px;
   font-weight: 750;
   letter-spacing: -0.02em;
@@ -1827,7 +1840,7 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   height: 100%;
   padding: 16px 18px;
 }
-.crm-podium .crm-card__head h5 svg {
+.crm-podium .crm-card__head h4 svg {
   color: var(--c-warn);
 }
 .crm-podium__stage {
@@ -2255,11 +2268,11 @@ const pct = (v, max = 100) => `${Math.round((v / max) * 100)}%`
   gap: 12px;
   padding: 18px;
 }
-.crm-set h5 {
+.crm-set h4 {
   font-size: 14px;
   font-weight: 700;
 }
-.crm-set h5:not(:first-child) {
+.crm-set h4:not(:first-child) {
   margin-top: 10px;
 }
 .crm-themes {

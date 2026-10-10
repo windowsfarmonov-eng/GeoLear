@@ -13,7 +13,7 @@ import { diveCities, mapLabels } from '../../content/geo'
 import { cityKeys, countryKeys, landformKeys, waterKeys } from '../../content/cities'
 import { motionOK } from '../../composables/useDevice'
 import { pauseBackgroundStages } from '../three/engine/pause'
-import { startScroll, stopScroll } from '../../composables/useSmoothScroll'
+import { startScroll, stopScroll } from '../../composables/scrollLite'
 import { locale } from '../../i18n'
 
 const city = defineModel('city', { type: String, default: null })

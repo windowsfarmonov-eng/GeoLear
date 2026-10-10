@@ -1,14 +1,12 @@
 <script setup>
 // Skroll bilan boshqariladigan 3D sahna: kamera globusga yaqinlashib O'rta Osiyoga
 // «sho'ng'iydi», globus esa low-poly relyef xaritaga aylanadi (tog'lar, Orol, Amudaryo, Sirdaryo).
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { device } from '../../composables/useDevice'
 import { useScene } from '../../composables/useScene'
 import { theme } from '../../composables/useTheme'
-import { ScrollTrigger } from '../../composables/useSmoothScroll'
+import { loadSmoothScroll } from '../../composables/scrollLite'
 import { DIVE_END, diveCities, mapLabels } from '../../content/geo'
-import { cityInfo, countryKeys, landformKeys, waterKeys } from '../../content/cities'
-import CityModal from './CityModal.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import fallbackLabels from '../../content/terrainFallbackLabels.json'
 import { locale, t } from '../../i18n'
@@ -23,11 +21,16 @@ const hintEl = ref(null)
 
 // bosiladigan shaharlar va ochiq shahar oynasi
 const openCity = ref(null)
-const cityNames = computed(() => Object.fromEntries(diveCities.map((c) => [c.key, cityInfo(c.key, locale.value)?.name ?? c.key])))
+const cityNames = computed(() => Object.fromEntries(diveCities.map((c) => [c.key, c[locale.value] ?? c.uz])))
+// Shahar oynasi (barcha matnlar va rasmlar ro'yxati bilan ~100 KB) faqat kerak bo'lganda yuklanadi
+const loadCityModal = () => import('./CityModal.vue')
+const CityModal = defineAsyncComponent(loadCityModal)
+const modalWanted = ref(false)
+watch(openCity, (value) => value && (modalWanted.value = true))
 // 3D rejimda shahar nomlari bosiladigan tugmalar sifatida chiqadi — oddiy «shahar» yozuvi kerak emas
 const sceneLabels = mapLabels.filter((l) => l.kind !== 'city')
 // daryo, ko'l, dengiz, cho'l, tog', vodiy va davlat yozuvlari ham bosiladi
-const clickable = new Set([...waterKeys, ...landformKeys, ...countryKeys])
+const clickable = new Set(sceneLabels.map((l) => l.key))
 const cityHint = computed(() => (locale.value === 'ru' ? 'Нажмите на любое название — город, реку, горы или страну — откроется география' : "Istalgan nomni bosing — shahar, daryo, tog' yoki davlat — geografiyasi ochiladi"))
 
 const enabled = device.tier !== 'static'
@@ -49,7 +52,7 @@ const { status, handle } = useScene(
       dark: theme.value === 'dark',
       labels: labelEls.map((el) => {
         const def = mapLabels.find((l) => l.key === el.dataset.label)
-        return { el, key: def.key, kind: def.kind, lat: def.lat, lon: def.lon, priority: def.priority }
+        return { el, key: def.key, kind: def.kind, lat: def.lat, lon: def.lon, priority: def.priority, water: def.water }
       }),
       cityEls,
       // yozuvlar shu elementlar ustiga tushmasin
@@ -66,6 +69,8 @@ const isStatic = computed(() => !enabled || status.value === 'failed')
 // til almashganda yozuvlar kengligi o'zgaradi — 3D sahna ularni qayta o'lchaydi
 watch(locale, () => nextTick(() => handle.value?.remeasure?.()))
 const live = computed(() => status.value === 'ready')
+// xarita tayyor bo'lgach oynani oldindan yuklab qo'yamiz — birinchi bosishda kutish bo'lmasin
+watch(live, (value) => value && loadCityModal().catch(() => {}))
 
 // Statik xarita: telefonda rasm kesib (cover) ko'rsatiladi va faqat asosiy yozuvlar qoladi
 const IMAGE_ASPECT = fallbackLabels.aspect
@@ -88,9 +93,12 @@ const staticLabels = computed(() => {
 })
 
 let trigger = null
+let unmounted = false
 onBeforeUnmount(() => narrowQuery.removeEventListener('change', onNarrowChange))
-onMounted(() => {
+onMounted(async () => {
   if (!enabled || !section.value) return
+  const { ScrollTrigger } = await loadSmoothScroll()
+  if (unmounted || !section.value) return
   trigger = ScrollTrigger.create({
     trigger: section.value,
     start: 'top top',
@@ -103,7 +111,10 @@ onMounted(() => {
     },
   })
 })
-onBeforeUnmount(() => trigger?.kill())
+onBeforeUnmount(() => {
+  unmounted = true
+  trigger?.kill()
+})
 </script>
 
 <template>
@@ -196,7 +207,7 @@ onBeforeUnmount(() => trigger?.kill())
         </div>
       </div>
     </div>
-    <CityModal v-model:city="openCity" />
+    <CityModal v-if="modalWanted" v-model:city="openCity" />
   </section>
 </template>
 
@@ -440,7 +451,7 @@ onBeforeUnmount(() => trigger?.kill())
   padding: 0.1rem 0.3rem;
   font-size: 0.86rem;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: hsl(44 40% 94% / 0.82);
   background: none;
@@ -459,6 +470,23 @@ onBeforeUnmount(() => trigger?.kill())
   text-transform: uppercase;
   letter-spacing: 0.1em;
   background: hsl(30 18% 10% / 0.55);
+}
+/* joy yetmagan yozuv: bosiladigan nuqta, nomi ustiga kelganda yoki fokusda chiqadi */
+.map-label.is-dot:not(:hover):not(:focus-visible) {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  border: 2px solid hsl(222 40% 8% / 0.85);
+  border-radius: 50%;
+  font-size: 0;
+  letter-spacing: 0;
+  background: currentColor;
+  box-shadow: 0 0 0 2px currentColor, 0 0 10px 2px hsl(0 0% 100% / 0.35);
+  overflow: hidden;
+}
+.map-label:hover,
+.map-label:focus-visible {
+  z-index: 3;
 }
 .map-label--city {
   color: hsl(var(--primary-fg));
@@ -485,9 +513,15 @@ onBeforeUnmount(() => trigger?.kill())
   pointer-events: none;
 }
 .dive__panel {
-  max-width: 28rem;
-  padding: 1.25rem 1.35rem;
+  /* keng va past: xaritaning shimoli-g'arbini (Orol, Ustyurt) yopib qo'ymasin */
+  max-width: 44rem;
+  padding: 1.1rem 1.35rem;
   border-radius: 22px;
+}
+@media (max-height: 800px) {
+  .dive__panel p {
+    display: none;
+  }
 }
 .dive__legend {
   display: flex;

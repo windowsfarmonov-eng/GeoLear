@@ -1,4 +1,4 @@
-import { gsap } from './useSmoothScroll'
+import { loadSmoothScroll } from './scrollLite'
 import { motionOK } from './useDevice'
 import { t } from '../i18n'
 
@@ -9,11 +9,12 @@ import { t } from '../i18n'
 let overlay = null
 let animatedCard = null
 let navigating = false
+let gsap = null
 
 function cleanup() {
   overlay?.remove()
   overlay = null
-  if (animatedCard) gsap.set(animatedCard, { clearProps: 'transform,opacity,filter' })
+  if (animatedCard) gsap?.set(animatedCard, { clearProps: 'transform,opacity,filter' })
   animatedCard = null
   navigating = false
 }
@@ -43,7 +44,7 @@ function buildOverlay() {
   return el
 }
 
-export function flyToPortal(event, href, card) {
+export async function flyToPortal(event, href, card) {
   if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
     return
   }
@@ -57,9 +58,17 @@ export function flyToPortal(event, href, card) {
     return
   }
 
+  const target = card ?? event.currentTarget
+  try {
+    gsap = (await loadSmoothScroll()).gsap
+  } catch {
+    go()
+    return
+  }
+
   const vw = window.innerWidth
   const vh = window.innerHeight
-  const rect = (card ?? event.currentTarget).getBoundingClientRect()
+  const rect = target.getBoundingClientRect()
   const from = `inset(${Math.max(0, rect.top)}px ${Math.max(0, vw - rect.right)}px ${Math.max(0, vh - rect.bottom)}px ${Math.max(0, rect.left)}px round 28px)`
 
   overlay = buildOverlay()

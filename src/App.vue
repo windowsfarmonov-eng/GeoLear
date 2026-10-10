@@ -1,46 +1,107 @@
 <script setup>
-import { nextTick, onBeforeUnmount, onMounted, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import SiteHeader from './components/layout/SiteHeader.vue'
 import SiteFooter from './components/layout/SiteFooter.vue'
 import HeroSection from './components/sections/HeroSection.vue'
 import TrustRow from './components/sections/TrustRow.vue'
 import ProblemSection from './components/sections/ProblemSection.vue'
-import DiveSection from './components/sections/DiveSection.vue'
-import CurriculumSection from './components/sections/CurriculumSection.vue'
-import FeaturesSection from './components/sections/FeaturesSection.vue'
-import TeachersSection from './components/sections/TeachersSection.vue'
-import StudentsSection from './components/sections/StudentsSection.vue'
-import LiveGameSection from './components/sections/LiveGameSection.vue'
-import AiSection from './components/sections/AiSection.vue'
-import HowItWorksSection from './components/sections/HowItWorksSection.vue'
-import RolesSection from './components/sections/RolesSection.vue'
-import FaqSection from './components/sections/FaqSection.vue'
-import FinalCta from './components/sections/FinalCta.vue'
-import { initSmoothScroll, ScrollTrigger, scrollToSection, watchLayoutChanges } from './composables/useSmoothScroll'
+import { loadSmoothScroll, scrollToSection, setSectionsReady } from './composables/scrollLite'
+import { whenUserReady } from './composables/useScene'
 import { locale, t } from './i18n'
 
+// Tezlik: birinchi ekran (hero) darhol chiziladi. Pastdagi bo'limlar alohida fayllarda — foydalanuvchi
+// birinchi marta harakat qilganda (skroll, teginish, sichqoncha, klaviatura) yoki bir necha soniyadan keyin
+// yuklanadi va brauzer bo'sh paytida bittadan qo'shiladi (uzun «qotish» bo'lmaydi).
+// Qidiruv robotlari va #bo'lim havolasi uchun kutilmaydi — butun sahifa darhol chiziladi.
+const laterLoaders = [
+  () => import('./components/sections/DiveSection.vue'),
+  () => import('./components/sections/CurriculumSection.vue'),
+  () => import('./components/sections/FeaturesSection.vue'),
+  () => import('./components/sections/TeachersSection.vue'),
+  () => import('./components/sections/StudentsSection.vue'),
+  () => import('./components/sections/LiveGameSection.vue'),
+  () => import('./components/sections/AiSection.vue'),
+  () => import('./components/sections/HowItWorksSection.vue'),
+  () => import('./components/sections/RolesSection.vue'),
+  () => import('./components/sections/FaqSection.vue'),
+  () => import('./components/sections/FinalCta.vue'),
+]
+const laterSections = shallowRef([])
+const allSections = ref(false)
+
+const whenIdle = () =>
+  new Promise((resolve) => {
+    if ('requestIdleCallback' in window) window.requestIdleCallback(() => resolve(), { timeout: 400 })
+    else window.setTimeout(resolve, 40)
+  })
+const afterPaint = () => new Promise((resolve) => requestAnimationFrame(() => window.setTimeout(resolve, 0)))
+
+const isBot = /bot|crawl|spider|slurp|yandex|bingpreview|facebookexternalhit|telegram|whatsapp/i.test(navigator.userAgent)
+
+let unmounted = false
+let startSections = () => {}
+/** Kutmasdan boshlash (masalan, menyudan pastdagi bo'limga o'tilganda) */
+const sectionsWanted = new Promise((resolve) => (startSections = resolve))
+
+const gate = () => (isBot || window.location.hash ? Promise.resolve() : Promise.race([whenUserReady(), sectionsWanted]))
+
+async function mountAll(loaders) {
+  const pending = loaders.map((load) => load())
+  for (const chunk of pending) {
+    const component = (await chunk).default
+    if (unmounted) return
+    laterSections.value = [...laterSections.value, component]
+    await nextTick()
+    await whenIdle()
+  }
+}
+
+async function mountLaterSections() {
+  await afterPaint()
+  await gate()
+  await mountAll(laterLoaders)
+  if (unmounted) return
+  allSections.value = true
+  await nextTick()
+}
+
+const refreshTriggers = () => loadSmoothScroll().then(({ ScrollTrigger }) => ScrollTrigger.refresh())
 // til almashganda matn uzunligi va bo'lim balandliklari o'zgaradi
-watch(locale, () => nextTick(() => ScrollTrigger.refresh()))
+watch(locale, () => nextTick(refreshTriggers))
 
 let stopWatchingLayout = () => {}
 
 onMounted(() => {
-  initSmoothScroll()
-  stopWatchingLayout = watchLayoutChanges(document.getElementById('main'))
-  // shriftlar yuklangach bo'lim balandliklari o'zgarishi mumkin
-  document.fonts?.ready.then(() => ScrollTrigger.refresh())
-  // URL'da #bo'lim bo'lsa — o'sha joyga
+  const sections = mountLaterSections()
+  setSectionsReady(sections, startSections)
+  afterPaint()
+    .then(gate)
+    .then(loadSmoothScroll)
+    .then((scroll) => {
+      if (unmounted) return
+      scroll.initSmoothScroll()
+      stopWatchingLayout = scroll.watchLayoutChanges(document.getElementById('main'))
+      // shriftlar yuklangach bo'lim balandliklari o'zgarishi mumkin
+      document.fonts?.ready.then(() => scroll.ScrollTrigger.refresh())
+      sections.then(() => scroll.ScrollTrigger.refresh())
+    })
+  // URL'da #bo'lim bo'lsa — o'sha joyga (bo'limlar chizilgach)
   let hash = ''
   try {
     hash = decodeURIComponent(window.location.hash.slice(1))
   } catch {
     /* buzuq #hash (masalan, «%») — e'tiborsiz qoldiramiz */
   }
-  if (hash && document.getElementById(hash)) {
-    window.setTimeout(() => scrollToSection(hash), 300)
+  if (hash) {
+    sections.then(() => {
+      if (document.getElementById(hash)) window.setTimeout(() => scrollToSection(hash), 300)
+    })
   }
 })
-onBeforeUnmount(() => stopWatchingLayout())
+onBeforeUnmount(() => {
+  unmounted = true
+  stopWatchingLayout()
+})
 </script>
 
 <template>
@@ -51,19 +112,9 @@ onBeforeUnmount(() => stopWatchingLayout())
     <HeroSection />
     <TrustRow />
     <ProblemSection />
-    <DiveSection />
-    <CurriculumSection />
-    <FeaturesSection />
-    <TeachersSection />
-    <StudentsSection />
-    <LiveGameSection />
-    <AiSection />
-    <HowItWorksSection />
-    <RolesSection />
-    <FaqSection />
-    <FinalCta />
+    <component :is="section" v-for="(section, index) in laterSections" :key="index" />
   </main>
-  <SiteFooter />
+  <SiteFooter v-if="allSections" />
 </template>
 
 <style>

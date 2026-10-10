@@ -126,7 +126,8 @@ export async function createHeroGlobe(options) {
       const x = (projected.x * 0.5 + 0.5) * stage.width
       const y = (-projected.y * 0.5 + 0.5) * stage.height
       label.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`
-      label.style.opacity = (smoothstep(0.2, 0.5, facing) * smoothstep(0.5, 1, intro)).toFixed(3)
+      // yarim shaffof holatda matn o'qilmaydi — yozuv yo to'liq ko'rinadi, yo yashirin (o'tish CSS'da)
+      label.style.opacity = facing > 0.35 && intro > 0.75 ? '1' : '0'
     }
   }
 

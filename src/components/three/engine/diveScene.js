@@ -59,7 +59,8 @@ export async function createDiveScene(options) {
     const portrait = camera.aspect < 1
     const fitByWidth = ((HALF_WIDTH * 1.04) / (tanHalf * camera.aspect)) * (portrait ? 0.46 : 1)
     const fit = Math.max(fitByHeight, fitByWidth)
-    const oblique = fit * 1.12
+    // egilgan kamerada hudud balandligi qisqaradi — keng va past ekranda xaritani yaqinroq olamiz
+    const oblique = (portrait ? fit : Math.max(fitByWidth, fitByHeight * 0.8)) * 1.12
     // telefonda kamera kamroq egiladi — xarita balandroq ko'rinadi, yozuvlarga joy ko'p
     const tilt = (portrait ? 34 : 52) * DEG
     // telefonda xarita yuqoridagi maslahat va pastdagi panel o'rtasida tursin
@@ -103,12 +104,14 @@ export async function createDiveScene(options) {
   // Har kadrda muhimroq element birinchi joy oladi, keyingisi bo'sh joy qidiradi (markaz → tepa → past →
   // o'ng → chap). Joy topilmasa yozuv silliq yashiriladi, shahar esa ixcham nuqtaga aylanadi (bosiladi,
   // ustiga kelganda nomi chiqadi). Oldingi joy imkon qadar saqlanadi — yozuvlar sakrab turmaydi.
+  const AREA_KINDS = new Set(['country', 'desert', 'plain'])
   const KIND_RANK = { water: 0, mountain: 1, desert: 2, river: 3, valley: 4, plain: 5, country: 6 }
   const labelItems = options.labels.map((label) => ({
     ...label,
     type: 'label',
     // 1-darajali tabiiy obyektlar (Tyan-Shan, Amudaryo…) poytaxtdan keyin, boshqa shaharlardan oldin joy oladi
     rank: (label.priority === 1 ? 10 : 100 * label.priority) + (KIND_RANK[label.kind] ?? 5),
+    area: AREA_KINDS.has(label.kind),
     w: 0,
     h: 0,
     ax: 0,
@@ -119,10 +122,13 @@ export async function createDiveScene(options) {
     y: null,
     mode: 0,
     shown: false,
+    dot: false,
+    box: null,
     fade: 0,
     alpha: -1,
     tx: null,
   }))
+  const waterItems = labelItems.filter((item) => item.water)
   const cityItems = (options.cityEls ?? [])
     .map(({ el, key }, index) => ({ el, key, index, anchor: extras.cityAnchors.find((a) => a.key === key) }))
     .filter((c) => c.anchor)
@@ -157,8 +163,10 @@ export async function createDiveScene(options) {
   /** Elementlar o'lchamini o'qish (boshida, til almashganda) */
   const measure = () => {
     for (const item of labelItems) {
+      item.el.classList.remove('is-dot')
       item.w = item.el.offsetWidth
       item.h = item.el.offsetHeight
+      if (item.dot) item.el.classList.add('is-dot')
     }
     for (const city of cityItems) {
       const wasCompact = city.el.classList.contains('is-compact')
@@ -186,11 +194,14 @@ export async function createDiveScene(options) {
   }
 
   const placed = []
+  // ko'l egallagan joy belgisi: shahar tugmasiga boshqa joy qolmasa, ko'l ustiga chiqishi mumkin
+  const WATER = {}
+  let skipWater = false
   // owner — shu joyni oldindan band qilgan shahar (o'zi uchun to'siq hisoblanmaydi)
   const free = (l, t, r, b, width, height, margin, owner = null) => {
     if (l < 4 || t < 4 || r > width - 4 || b > height - 4) return false
     for (const q of placed) {
-      if (q.owner !== null && q.owner === owner) continue
+      if (q.owner !== null && (q.owner === owner || (q.owner === WATER && skipWater))) continue
       if (l - margin < q.r && r + margin > q.l && t - margin < q.b && b + margin > q.t) return false
     }
     return true
@@ -222,10 +233,76 @@ export async function createDiveScene(options) {
     [-0.5, -1],
     [0.5, 1],
     [-0.5, 1],
+    [1.08, 0],
+    [-1.08, 0],
+    [1, -1],
+    [-1, -1],
+    [1, 1],
+    [-1, 1],
     [0, -2],
     [0, 2],
+    // faqat katta hududlar (davlat, cho'l, pasttekislik): nomi uzoqroqqa ham surilishi mumkin
+    [1.1, -2],
+    [-1.1, -2],
+    [1.1, 2],
+    [-1.1, 2],
+    [0, -3],
+    [0, 3],
+    [1.6, -1],
+    [-1.6, -1],
+    [1.6, 1],
+    [-1.6, 1],
   ]
-  const SHIFT_ORDER = LABEL_SHIFTS.map((_, i) => i)
+  const FAR_SHIFTS = 10
+  // ko'l yozuvi: avval o'z nuqtasi, keyin ko'lning tepasi, pasti, o'ngi, chapi
+  const BOX_MODES = 5
+  const MODE_ORDER = Array.from({ length: BOX_MODES + LABEL_SHIFTS.length }, (_, i) => i)
+  const SHIFT_ORDER = MODE_ORDER.slice(BOX_MODES)
+  const offset = { x: 0, y: 0 }
+  const labelOffset = (label, mode) => {
+    if (mode >= BOX_MODES) {
+      const [sx, sy] = LABEL_SHIFTS[mode - BOX_MODES]
+      offset.x = sx * label.w
+      offset.y = sy * (label.h + 3)
+      return true
+    }
+    const b = label.box
+    if (!b) return false
+    offset.x = (b.l + b.r) / 2 - label.ax
+    offset.y = (b.t + b.b) / 2 - label.ay
+    if (mode === 0) {
+      offset.x = 0
+      offset.y = 0
+    } else if (mode === 1) offset.y = b.t - label.ay - label.h / 2 - 4
+    else if (mode === 2) offset.y = b.b - label.ay + label.h / 2 + 4
+    else if (mode === 3) offset.x = b.r - label.ax + label.w / 2 + 5
+    else offset.x = b.l - label.ax - label.w / 2 - 5
+    return true
+  }
+  // joy topilmagan yozuv nuqtaga aylanadi — nuqta uchun yaqin atrofdan bo'sh joy
+  const DOT_SHIFTS = [
+    [0, 0],
+    [0, -15],
+    [0, 15],
+    [16, 0],
+    [-16, 0],
+    [14, -13],
+    [-14, -13],
+    [14, 13],
+    [-14, 13],
+    [0, -28],
+    [0, 28],
+    [30, 0],
+    [-30, 0],
+    [28, -26],
+    [-28, -26],
+    [28, 26],
+    [-28, 26],
+    [0, -42],
+    [0, 42],
+    [46, 0],
+    [-46, 0],
+  ]
 
   const labelPoint = new Vector3()
   const cityWorld = new Vector3()
@@ -284,8 +361,42 @@ export async function createDiveScene(options) {
     }
     placed.length = 0
     for (const o of obstacles) occupy(o.l, o.t, o.r, o.b)
-    const maxPriority = narrow ? 1 : wide ? 3 : 2
+    const maxPriority = narrow ? 2 : 3
     const step = 1 - Math.exp(-12 * dt)
+
+    // ko'llarning o'zi (Orol, Balxash, Issiqko'l…) — hech qaysi yozuv ularni yopmasin
+    for (const label of waterItems) {
+      label.box = null
+      if (labelAlpha <= 0.5) continue
+      let ul = Infinity
+      let ut = Infinity
+      let ur = -Infinity
+      let ub = -Infinity
+      for (const [lat0, lon0, lat1, lon1] of label.water) {
+        let l = Infinity
+        let t = Infinity
+        let r = -Infinity
+        let b = -Infinity
+        let ok = true
+        for (let k = 0; k < 4; k++) {
+          terrain.surfacePoint(k < 2 ? lat0 : lat1, k % 2 ? lon1 : lon0, 0.002, labelPoint)
+          labelPoint.applyMatrix4(earth.spin.matrixWorld)
+          const pr = project(labelPoint)
+          if (!pr.front || pr.facing < 0.05) ok = false
+          l = Math.min(l, pr.x)
+          t = Math.min(t, pr.y)
+          r = Math.max(r, pr.x)
+          b = Math.max(b, pr.y)
+        }
+        if (!ok || r < 0 || l > width || b < 0 || t > height) continue
+        occupy(l, t, r, b, WATER)
+        ul = Math.min(ul, l)
+        ut = Math.min(ut, t)
+        ur = Math.max(ur, r)
+        ub = Math.max(ub, b)
+      }
+      if (ur > ul) label.box = { l: ul, t: ut, r: ur, b: ub }
+    }
 
     // shahar nuqtalari (nur ustunlari tepasi) — yozuvlar ularni yopmasin
     for (const city of cityItems) {
@@ -310,14 +421,18 @@ export async function createDiveScene(options) {
         if (city.base > 0.05) {
           const margin = city.fade < 0.5 ? 4 : 2
           let mode = null
-          for (const m of [city.mode, ...CITY_ORDER]) {
-            const [l, t, r, b] = cityModes[m](city.ax, city.ay, city.w, city.h)
-            if (free(l, t, r, b, width, height, margin, city)) {
-              mode = m
-              occupy(l, t, r, b)
-              break
+          for (let pass = 0; pass < 2 && !mode; pass++) {
+            skipWater = pass === 1
+            for (const m of [city.mode, ...CITY_ORDER]) {
+              const [l, t, r, b] = cityModes[m](city.ax, city.ay, city.w, city.h)
+              if (free(l, t, r, b, width, height, margin, city)) {
+                mode = m
+                occupy(l, t, r, b)
+                break
+              }
             }
           }
+          skipWater = false
           if (mode) {
             city.mode = mode
             if (city.compact) {
@@ -352,21 +467,41 @@ export async function createDiveScene(options) {
         label.ax = pr.x
         label.ay = pr.y
         if (base > 0.05) {
-          const margin = label.shown ? 3 : 7
-          for (const mi of [label.mode, ...SHIFT_ORDER]) {
-            const [sx, sy] = LABEL_SHIFTS[mi]
-            const ox = sx * label.w
-            const oy = sy * (label.h + 3)
-            const l = pr.x + ox - label.w / 2
-            const t = pr.y + oy - label.h / 2
+          let dot = false
+          const margin = label.shown && !label.dot ? 2 : 6
+          const order = label.box ? MODE_ORDER : SHIFT_ORDER
+          const count = order.length - (label.area ? 0 : FAR_SHIFTS)
+          for (let i = -1; i < count; i++) {
+            const mi = i < 0 ? label.mode : order[i]
+            if (!labelOffset(label, mi)) continue
+            const l = pr.x + offset.x - label.w / 2
+            const t = pr.y + offset.y - label.h / 2
             if (free(l, t, l + label.w, t + label.h, width, height, margin)) {
               occupy(l, t, l + label.w, t + label.h)
               label.mode = mi
-              label.ox = ox
-              label.oy = oy
+              label.ox = offset.x
+              label.oy = offset.y
               target = 1
               break
             }
+          }
+          // joy yo'q — bosiladigan nuqta: nomi ustiga kelganda chiqadi (telefonda nuqtalar chiqarilmaydi)
+          if (target === 0 && !narrow) {
+            for (const [dx, dy] of DOT_SHIFTS) {
+              if (free(pr.x + dx - 7, pr.y + dy - 7, pr.x + dx + 7, pr.y + dy + 7, width, height, 1)) {
+                occupy(pr.x + dx - 7, pr.y + dy - 7, pr.x + dx + 7, pr.y + dy + 7)
+                label.ox = dx
+                label.oy = dy
+                target = 1
+                dot = true
+                break
+              }
+            }
+          }
+          if (target === 1 && dot !== label.dot) {
+            label.dot = dot
+            label.fade = 0
+            label.el.classList.toggle('is-dot', dot)
           }
         }
       }

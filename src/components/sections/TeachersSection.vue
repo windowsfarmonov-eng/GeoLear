@@ -7,7 +7,7 @@ import { computed, ref } from 'vue'
 import { crmData, crmViews } from '../../content/crm'
 import { links } from '../../config/links'
 import { flyToPortal } from '../../composables/useFlyTransition'
-import { scrollToElement, scrollToSection } from '../../composables/useSmoothScroll'
+import { scrollToElement, scrollToSection } from '../../composables/scrollLite'
 import { locale, t, tm } from '../../i18n'
 
 // tartib i18n'dagi «teachers.items» bilan bir xil
@@ -64,11 +64,13 @@ function showInLaptop(i) {
                   <p>{{ currentItem.text }}</p>
                 </div>
             </div>
+            <!-- mayda ko'rsatkich nuqtalari: klaviatura uchun pastdagi ro'yxat xuddi shu bo'limlarni ochadi -->
             <div class="crm-float__dots">
               <button
                 v-for="(key, i) in crmViews"
                 :key="key"
                 type="button"
+                tabindex="-1"
                 :class="{ 'is-on': key === crmView }"
                 :aria-label="tm('teachers.items')?.[i]?.title ?? key"
                 @click="crmView = key"

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import HeroGlobe from '../three/HeroGlobe.vue'
 import RoleTile from '../role/RoleTile.vue'
-import { scrollToSection } from '../../composables/useSmoothScroll'
+import { scrollToSection } from '../../composables/scrollLite'
 import { t } from '../../i18n'
 
 const textColumn = ref(null)

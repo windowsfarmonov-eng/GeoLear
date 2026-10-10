@@ -136,6 +136,8 @@ const hintStyle = computed(() => {
       :class="{ 'is-hidden': live }"
       :style="fallbackStyle"
       src="/images/globe-fallback.webp"
+      srcset="/images/globe-fallback-480.webp 480w, /images/globe-fallback-768.webp 768w, /images/globe-fallback.webp 1000w"
+      sizes="(max-width: 767px) 106vw, (max-width: 1023px) 80vw, 56vw"
       width="1000"
       height="1000"
       alt=""
@@ -277,6 +279,7 @@ const hintStyle = computed(() => {
 .marker-label {
   opacity: 0;
   will-change: transform, opacity;
+  transition: opacity 0.25s ease;
 }
 .marker-label__line {
   position: absolute;

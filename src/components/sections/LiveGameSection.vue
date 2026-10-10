@@ -416,10 +416,13 @@ function flyVars(i) {
   border-radius: 18px;
   background: hsl(var(--bg-deep) / 0.6);
   border: 1px solid hsl(var(--line));
-  opacity: 0.25;
+}
+/* savol chiqquncha kartochka bo'sh turadi (xira matn o'qilmaydi — kontrast talabi) */
+.quiz > * {
+  opacity: 0;
   transition: opacity 0.4s ease;
 }
-.quiz.is-visible {
+.quiz.is-visible > * {
   opacity: 1;
 }
 .quiz__q {
@@ -437,16 +440,19 @@ function flyVars(i) {
   padding: 0.55rem 0.65rem;
   border-radius: 10px;
   font-size: 0.85rem;
-  font-weight: 650;
-  color: #fff;
+  font-weight: 700;
+  /* to'q matn: sariq va yashil fonda ham o'qiladi (kontrast 4.5:1 dan yuqori) */
+  color: #10131a;
   background: var(--c);
   transition:
-    opacity 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 .quiz__answer.is-dim {
-  opacity: 0.3;
+  color: hsl(0 0% 100% / 0.92);
+  background: color-mix(in srgb, var(--c) 30%, #151922);
 }
 .quiz__answer.is-correct {
   transform: scale(1.04);

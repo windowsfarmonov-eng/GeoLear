@@ -50,7 +50,15 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Hero: 3D yuklanguncha ko'rinadigan statik globus -->
-    <link rel="preload" as="image" href="/images/globe-fallback.webp" type="image/webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/globe-fallback.webp"
+      imagesrcset="/images/globe-fallback-480.webp 480w, /images/globe-fallback-768.webp 768w, /images/globe-fallback.webp 1000w"
+      imagesizes="(max-width: 767px) 106vw, (max-width: 1023px) 80vw, 56vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
 
     <script>
       // Mavzu (tema) sahifa chizilishidan oldin qo'llanadi — oq "miltillash" bo'lmasin

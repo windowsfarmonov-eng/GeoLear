@@ -3,7 +3,7 @@ import AppLogo from '../ui/AppLogo.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import { links } from '../../config/links'
 import { contacts, navSections } from '../../config/site'
-import { scrollToSection } from '../../composables/useSmoothScroll'
+import { scrollToSection } from '../../composables/scrollLite'
 import { flyToPortal } from '../../composables/useFlyTransition'
 import { t } from '../../i18n'
 

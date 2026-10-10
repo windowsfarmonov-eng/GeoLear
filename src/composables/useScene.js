@@ -1,4 +1,5 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { device } from './useDevice'
 import { theme } from './useTheme'
 
 /**
@@ -9,9 +10,10 @@ import { theme } from './useTheme'
 /**
  * Birinchi ekrandagi (hero) sahna uchun: three.js sahifa yuklanishini sekinlashtirmasin —
  * foydalanuvchi birinchi marta harakat qilganda (sichqoncha, skroll, teginish, klaviatura)
- * yoki yuklangandan ~3.5 soniya o'tib ishga tushadi. Ungacha bir xil ko'rinishdagi statik rasm turadi.
+ * yoki yuklangandan bir necha soniya o'tib ishga tushadi. Ungacha bir xil ko'rinishdagi statik rasm turadi.
+ * Telefonda (kuchsizroq protsessor) kutish uzoqroq — sahifa to'liq tinchlangach.
  */
-function whenUserReady() {
+export function whenUserReady(delay = device.finePointer ? 3500 : 9000) {
   return new Promise((resolve) => {
     const events = ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown', 'scroll']
     let timer = 0
@@ -21,7 +23,7 @@ function whenUserReady() {
       resolve()
     }
     events.forEach((name) => window.addEventListener(name, done, { once: true, passive: true }))
-    const arm = () => (timer = window.setTimeout(done, 3500))
+    const arm = () => (timer = window.setTimeout(done, delay))
     if (document.readyState === 'complete') arm()
     else window.addEventListener('load', arm, { once: true })
   })
