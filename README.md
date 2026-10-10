@@ -23,8 +23,8 @@ Saytdagi barcha «Kirish», «Panelga kirish», «Ro'yxatdan o'tish» tugmalari 
 Domenni o'zgartirish uchun `.env` faylini tahrirlang (namuna — `.env.example`):
 
 ```env
-VITE_ADMIN_URL=https://geolearn-modified1-admin.vercel.app   # O'qituvchi paneli  → /dashboard
-VITE_USER_URL=https://geolearn-modified1.vercel.app   # O'quvchi portali   → /login, /register
+VITE_ADMIN_URL=https://admin.geolearn.uz   # O'qituvchi paneli  → /dashboard
+VITE_USER_URL=https://student.geolearn.uz   # O'quvchi portali   → /login, /register
 VITE_SITE_URL=https://geolearn.uz          # Landingning o'z domeni (canonical, OG rasm)
 ```
 

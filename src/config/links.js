@@ -6,8 +6,8 @@
 
 const trimSlash = (url) => url.replace(/\/+$/, '')
 
-export const ADMIN_URL = trimSlash(import.meta.env.VITE_ADMIN_URL || 'https://geolearn-modified1-admin.vercel.app')
-export const USER_URL = trimSlash(import.meta.env.VITE_USER_URL || 'https://geolearn-modified1.vercel.app')
+export const ADMIN_URL = trimSlash(import.meta.env.VITE_ADMIN_URL || 'https://admin.geolearn.uz')
+export const USER_URL = trimSlash(import.meta.env.VITE_USER_URL || 'https://student.geolearn.uz')
 
 export const links = {
   teacherLogin: `${ADMIN_URL}/dashboard`, // O'qituvchi paneli (kirmagan bo'lsa login'ga yo'naltiradi)
