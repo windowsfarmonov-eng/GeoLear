@@ -10,7 +10,7 @@ import CountUp from '../ui/CountUp.vue'
 import LandformViewer from './LandformViewer.vue'
 import { cityInfo } from '../../content/cities'
 import { diveCities, mapLabels } from '../../content/geo'
-import { cityKeys, landformKeys, waterKeys } from '../../content/cities'
+import { cityKeys, countryKeys, landformKeys, waterKeys } from '../../content/cities'
 import { motionOK } from '../../composables/useDevice'
 import { pauseBackgroundStages } from '../three/engine/pause'
 import { startScroll, stopScroll } from '../../composables/useSmoothScroll'
@@ -24,8 +24,8 @@ const ui = {
     lat: 'sh.k.',
     lon: 'sh.u.',
     close: 'Yopish',
-    prev: 'Oldingi shahar',
-    next: 'Keyingi shahar',
+    prev: 'Oldingisi',
+    next: 'Keyingisi',
     photo: 'Foto',
     drag: 'Sudrab aylantiring',
     prevPhoto: 'Oldingi rasm',
@@ -37,15 +37,15 @@ const ui = {
     nature: 'Tabiati',
     numbers: 'Raqamlarda',
     cards: { climate: 'Iqlimi', flora: "O'simliklari", fauna: 'Hayvonot dunyosi', wealth: 'Tabiiy boyliklari' },
-    types: { desert: "Cho'l", mountain: "Tog'lar", valley: 'Vodiy', plateau: 'Plato' },
+    types: { desert: "Cho'l", mountain: "Tog'lar", valley: 'Vodiy', plateau: 'Plato', plain: 'Pasttekislik', steppe: 'Dasht' },
   },
   ru: {
     facts: 'Географические особенности',
     lat: 'с.ш.',
     lon: 'в.д.',
     close: 'Закрыть',
-    prev: 'Предыдущий город',
-    next: 'Следующий город',
+    prev: 'Предыдущий',
+    next: 'Следующий',
     photo: 'Фото',
     drag: 'Потяните, чтобы вращать',
     prevPhoto: 'Предыдущее фото',
@@ -57,7 +57,7 @@ const ui = {
     nature: 'Природа',
     numbers: 'В цифрах',
     cards: { climate: 'Климат', flora: 'Растительность', fauna: 'Животный мир', wealth: 'Природные богатства' },
-    types: { desert: 'Пустыня', mountain: 'Горы', valley: 'Долина', plateau: 'Плато' },
+    types: { desert: 'Пустыня', mountain: 'Горы', valley: 'Долина', plateau: 'Плато', plain: 'Низменность', steppe: 'Степь' },
   },
 }
 const L = computed(() => ui[locale.value] ?? ui.uz)
@@ -215,7 +215,7 @@ function onUp(event) {
 // ── shaharlar bo'ylab
 // oldingi/keyingi — shu turdagi obyektlar ichida (shaharlar yoki suv obyektlari)
 function otherCity(delta) {
-  const order = waterKeys.includes(city.value) ? waterKeys : landformKeys.includes(city.value) ? landformKeys : cityKeys
+  const order = [waterKeys, landformKeys, countryKeys].find((keys) => keys.includes(city.value)) ?? cityKeys
   const i = order.indexOf(city.value)
   city.value = order[(i + delta + order.length) % order.length]
 }
@@ -292,7 +292,7 @@ const radius = computed(() => {
             </button>
             <div class="city-modal__title">
               <span class="city-modal__country">
-                <span v-if="isLand" class="city-modal__type" :class="`is-${info.type}`">{{ L.types[info.type] }}</span>
+                <span v-if="isLand" class="city-modal__type" :class="`is-${info.type}`">{{ L.types[info.badge] }}</span>
                 <AppIcon name="globe" :size="14" /> {{ info.country }} · {{ coords }}
               </span>
               <h3 :id="`city-title-${info.key}`">{{ info.name }}</h3>

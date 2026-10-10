@@ -7,7 +7,7 @@ import { useScene } from '../../composables/useScene'
 import { theme } from '../../composables/useTheme'
 import { ScrollTrigger } from '../../composables/useSmoothScroll'
 import { DIVE_END, diveCities, mapLabels } from '../../content/geo'
-import { cityInfo, landformKeys, waterKeys } from '../../content/cities'
+import { cityInfo, countryKeys, landformKeys, waterKeys } from '../../content/cities'
 import CityModal from './CityModal.vue'
 import AppIcon from '../ui/AppIcon.vue'
 import fallbackLabels from '../../content/terrainFallbackLabels.json'
@@ -26,9 +26,9 @@ const openCity = ref(null)
 const cityNames = computed(() => Object.fromEntries(diveCities.map((c) => [c.key, cityInfo(c.key, locale.value)?.name ?? c.key])))
 // 3D rejimda shahar nomlari bosiladigan tugmalar sifatida chiqadi — oddiy «shahar» yozuvi kerak emas
 const sceneLabels = mapLabels.filter((l) => l.kind !== 'city')
-// daryo, ko'l, dengiz, cho'l, tog' va vodiy yozuvlari ham bosiladi
-const clickable = new Set([...waterKeys, ...landformKeys])
-const cityHint = computed(() => (locale.value === 'ru' ? 'Нажмите на город, реку, пустыню или горы — откроется география' : "Shahar, daryo, cho'l yoki tog'ni bosing — geografiyasi ochiladi"))
+// daryo, ko'l, dengiz, cho'l, tog', vodiy va davlat yozuvlari ham bosiladi
+const clickable = new Set([...waterKeys, ...landformKeys, ...countryKeys])
+const cityHint = computed(() => (locale.value === 'ru' ? 'Нажмите на любое название — город, реку, горы или страну — откроется география' : "Istalgan nomni bosing — shahar, daryo, tog' yoki davlat — geografiyasi ochiladi"))
 
 const enabled = device.tier !== 'static'
 const quality = device.tier === 'full' ? 'full' : 'lite'
@@ -121,7 +121,7 @@ onBeforeUnmount(() => trigger?.kill())
               v-if="clickable.has(label.key)"
               type="button"
               class="map-label map-label--button"
-              :class="`map-label--${label.kind}`"
+              :class="[`map-label--${label.kind}`, { 'map-label--minor': label.priority === 3 }]"
               :data-label="label.key"
               @click="openCity = label.key"
             >
@@ -416,6 +416,25 @@ onBeforeUnmount(() => trigger?.kill())
 .map-label--valley {
   color: hsl(140 50% 80%);
 }
+.map-label--button.map-label--country {
+  border-color: transparent;
+}
+.map-label--button.map-label--country:hover,
+.map-label--button.map-label--country:focus-visible {
+  color: #fff;
+  background: hsl(222 32% 12% / 0.72);
+  border-color: hsl(44 60% 85% / 0.6);
+  box-shadow: 0 0 0 4px hsl(44 60% 80% / 0.18);
+}
+.map-label--button.map-label--plain {
+  border-color: hsl(70 45% 75% / 0.5);
+}
+.map-label--button.map-label--plain:hover,
+.map-label--button.map-label--plain:focus-visible {
+  background: hsl(75 30% 24% / 0.92);
+  border-color: hsl(70 55% 80%);
+  box-shadow: 0 0 0 4px hsl(70 45% 65% / 0.22);
+}
 /* davlat nomlari: xaritadagidek yirik, siyrak harfli, yarim shaffof */
 .map-label--country {
   padding: 0.1rem 0.3rem;
@@ -435,7 +454,7 @@ onBeforeUnmount(() => trigger?.kill())
   color: hsl(70 45% 82%);
   background: hsl(80 20% 10% / 0.45);
 }
-.map-label--mountain:not(.map-label--button) {
+.map-label--mountain.map-label--minor {
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;

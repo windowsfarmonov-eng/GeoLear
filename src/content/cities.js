@@ -6,6 +6,7 @@
 
 import photos from './cityPhotos.json'
 import { landformKeys, landforms } from './landforms'
+import { countries, moreWaters } from './places'
 
 const raw = {
   tashkent: {
@@ -532,17 +533,19 @@ const waters = {
   },
 }
 
+Object.assign(waters, moreWaters)
+
 const fmtTemp = (v) => `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v)} °C`
 
 /** Shahar yoki suv obyekti ma'lumoti joriy tilda, rasmlar mualliflari bilan birga */
 export function cityInfo(key, lang) {
   const ru = lang === 'ru'
-  const water = waters[key]
+  const water = waters[key] ?? countries[key]
   if (water) {
     const info = water[lang] ?? water.uz
     return {
       key,
-      kind: 'water',
+      kind: countries[key] ? 'country' : 'water',
       ...info,
       stats: info.stats.map(([label, value]) => ({ label, value })),
       photos: (photos[key] ?? []).map((p, i) => ({ ...p, caption: info.captions[i] ?? '' })),
@@ -555,6 +558,7 @@ export function cityInfo(key, lang) {
       key,
       kind: 'landform',
       type: land.type,
+      badge: land.badge ?? land.type,
       look: land.look,
       high: Boolean(land.high),
       low: Boolean(land.low),
@@ -587,3 +591,5 @@ export const cityKeys = Object.keys(raw)
 export const waterKeys = Object.keys(waters)
 /** Bosiladigan relyef obyektlari: cho'llar, tog'lar, vodiy, plato */
 export { landformKeys }
+/** Bosiladigan davlat nomlari */
+export const countryKeys = Object.keys(countries)

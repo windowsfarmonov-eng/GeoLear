@@ -93,26 +93,29 @@ function buildModel(info) {
 
   if (info.type === 'desert') {
     const dark = info.key === 'karakum'
+    // flat — tekis (gilli cho'l, dasht, pasttekislik): barxanlar past; hill — qoldiq tog' bor-yo'qligi
+    const flat = Boolean(look.flat)
+    const hilly = !dark && !flat && look.hill !== false
     const sand = c(look.sand)
     const sandDark = c(look.sandDark)
     const rock = c(dark ? '#6b5642' : '#8a5a3a')
-    const crest = c(dark ? '#cdb791' : '#f0b47a')
+    const crest = c(look.crest ?? (dark ? '#cdb791' : '#f0b47a'))
     const takyr = c('#d8cdb8')
     return {
-      strata: dark ? ['#a48b66', '#86704f', '#6b573e', '#55432f', '#3e3022'] : ['#d4874a', '#b86c38', '#97552c', '#7a4424', '#5a321b'],
+      strata: look.strata ?? (dark ? ['#a48b66', '#86704f', '#6b573e', '#55432f', '#3e3022'] : ['#d4874a', '#b86c38', '#97552c', '#7a4424', '#5a321b']),
       height(x, z) {
         const warp = fbm(x * 1.6 + 3, z * 1.6) * 3.2
         const along = x * 0.82 + z * 0.57
         const wave = Math.sin(along * 15 + warp)
         // barxan: shamol tomoni qiya, ortida tik — asimmetrik to'lqin
-        const dune = Math.pow(0.5 + 0.5 * wave, 2.6) * 0.15 + Math.pow(0.5 + 0.5 * Math.sin(along * 34 + warp * 2), 3) * 0.025
+        const dune = (Math.pow(0.5 + 0.5 * wave, 2.6) * 0.15 + Math.pow(0.5 + 0.5 * Math.sin(along * 34 + warp * 2), 3) * 0.025) * (flat ? 0.3 : 1)
         const swell = fbm(x * 1.2, z * 1.2, 4) * 0.16
         let h = 0.04 + swell + dune
-        if (!dark) {
+        if (hilly) {
           // qoldiq tog' (Tomditov)
           const hill = gauss(x, z, 0.4, -0.32, 0.27)
           h += hill * (0.5 + ridged(x * 3.4, z * 3.4, 5) * 0.5)
-        } else {
+        } else if (dark) {
           // Darvoza krateri
           const r = Math.hypot(x + 0.38, z - 0.32)
           h -= smoothstep(0.17, 0.05, r) * 0.14
@@ -121,17 +124,17 @@ function buildModel(info) {
         return h
       },
       color(x, z, h, slope) {
-        if (!dark) {
+        if (hilly) {
           const hill = gauss(x, z, 0.4, -0.32, 0.27)
           if (hill > 0.25 && h > 0.24) return rock.clone().lerp(c('#c9916a'), smoothstep(0.25, 0.8, h)).multiplyScalar(1 - Math.min(0.35, slope * 0.25))
-        } else if (Math.hypot(x + 0.38, z - 0.32) < 0.15) return c('#3a2a1f')
-        if (dark && fbm(x * 2.2 + 9, z * 2.2) > 0.6 && h < 0.16) return takyr
+        } else if (dark && Math.hypot(x + 0.38, z - 0.32) < 0.15) return c('#3a2a1f')
+        if ((dark || flat) && fbm(x * 2.2 + 9, z * 2.2) > 0.6 && h < 0.16) return dark ? takyr : sand.clone().lerp(takyr, 0.55)
         const t = smoothstep(0.04, 0.3, h)
         const col = sandDark.clone().lerp(sand, t)
         return slope < 0.12 && h > 0.16 ? col.lerp(crest, 0.35) : col
       },
-      shrubs: { color: look.shrub, count: 70, maxH: 0.16 },
-      dust: dark ? '#e6cfa3' : '#ffc58c',
+      shrubs: { color: look.shrub, count: flat ? 110 : 70, maxH: 0.16 },
+      dust: look.dust ?? (dark ? '#e6cfa3' : '#ffc58c'),
       crater: dark ? { x: -0.38, z: 0.32 } : null,
     }
   }
