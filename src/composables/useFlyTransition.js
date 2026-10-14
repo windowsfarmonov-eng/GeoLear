@@ -1,6 +1,7 @@
 import { loadSmoothScroll } from './scrollLite'
 import { motionOK } from './useDevice'
 import { t } from '../i18n'
+import { withVisit } from '../analytics/track'
 
 // Kartochka bosilganda kamera unga «uchib kirgandek» o'tish animatsiyasi, so'ng
 // havola shu tabning o'zida ochiladi. Ctrl/Cmd/Shift + bosish brauzerning odatiy
@@ -52,7 +53,7 @@ export async function flyToPortal(event, href, card) {
   if (navigating) return
   navigating = true
 
-  const go = () => window.location.assign(href)
+  const go = () => window.location.assign(withVisit(href))
   if (!motionOK) {
     go()
     return

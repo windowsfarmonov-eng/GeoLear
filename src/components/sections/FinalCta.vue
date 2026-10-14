@@ -6,7 +6,7 @@ import ShowcaseGlobe from '../three/ShowcaseGlobe.vue'
 </script>
 
 <template>
-  <section class="section final-cta" aria-labelledby="final-title">
+  <section data-track="final" class="section final-cta" aria-labelledby="final-title">
     <div class="container-x">
       <div v-reveal class="final-cta__box">
         <div class="final-cta__topo" aria-hidden="true" />

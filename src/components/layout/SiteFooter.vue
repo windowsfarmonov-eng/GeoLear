@@ -11,7 +11,7 @@ const year = 2026
 </script>
 
 <template>
-  <footer class="site-footer">
+  <footer data-track="footer" class="site-footer">
     <div class="container-x">
       <div class="site-footer__grid">
         <div class="site-footer__brand">
